@@ -30,6 +30,7 @@ export default function Home() {
         <meta name="description" content="The personal website of Harshyt Goel." />
         <meta name="language" content="English" />
         <meta name="googlebot" content="index,follow" />
+        <link rel="shortcut icon" href="/sakura.png" />
       </Head>
       <Container width="100%" height="100%" backgroundColor="background">
         <Align alignment="topCenter">
