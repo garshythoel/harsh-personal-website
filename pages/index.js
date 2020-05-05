@@ -37,18 +37,18 @@ export default function Home() {
 
               <Text htmlTag="h1" size="xxlarge">Harsh.yt</Text>
               <Spacer top="large" />
-              <Text size="large"> I write about emotional growth, inspiration and creativity.</Text>
-
+              <Text size="large"> I write about emotional growth, inspiration and creativity. Here are my <Link variant="neutral" target="_blank" href="https://www.notion.so/Harshyt-s-Working-Manual-62b0d9a324044d37bb67ebc19a7dc236">rules to life</Link>.</Text>
+              
               <Spacer top="medium" />
-              <Text size="large">I once started a niche but popular <Link variant="neutral" href="https://youtube.com/riffshop">youtube channel</Link>
-              &nbsp;and currently work at <Link variant="neutral">loom.com</Link></Text>
+              <Text size="large">I once started a niche but popular <Link variant="neutral" target="_blank" href="https://youtube.com/riffshop">youtube channel</Link>
+              &nbsp;and currently work at <Link variant="neutral" target="_blank" href="https://loom.com/">loom.com</Link></Text>
               <Spacer top="medium" />
-              <Text size="large">I'm also fairly active on <Link variant="neutral" href="https://twitter.com/garshythoel">Twitter @garshythoel</Link></Text>
+              <Text size="large">I'm also fairly active on <Link variant="neutral" target="_blank" href="https://twitter.com/garshythoel">Twitter@garshythoel</Link></Text>
               <Spacer top="medium" />
               <Text size="large">If you'd like to hear what i have to say, about myself, about life and about a whole lot of other things, big and small. Signup to my email list and I'll send you the first short story I ever wrote + some music I’ve been working on.</Text>
 
               <Spacer top="large" />
-              <Button htmlTag="a" size="large" href="https://harsh.substack.com/welcome">Subscribe</Button>
+              <Button htmlTag="a" size="large" target="_blank" href="https://harsh.substack.com/welcome">Subscribe</Button>
 
               <Spacer top="xxlarge" />
 
