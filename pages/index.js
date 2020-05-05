@@ -1,9 +1,11 @@
 import { Align, BaseStyles, Button, Container, Layout, Link, Spacer, Text } from '@loomhq/lens';
-import { THEME_DARK, useTheme } from './hooks';
 
 import Head from 'next/head'
 import { TwitterTweetEmbed } from 'react-twitter-embed';
 import { useEffect } from 'react';
+import { useMediaPredicate } from "react-media-hook";
+
+export const THEME_DARK = 'theme-dark';
 
 const Tweet = () => (
   <TwitterTweetEmbed 
@@ -11,7 +13,7 @@ const Tweet = () => (
     options={{ theme: 'dark', height: '180px' }}/> );
 
 export default function Home() {
-  const activeTheme = useTheme();
+  const activeTheme = useMediaPredicate('(prefers-color-scheme: dark)') && THEME_DARK;
 
   useEffect(() => {
     if (activeTheme === THEME_DARK) {
@@ -47,9 +49,9 @@ export default function Home() {
 
               <Spacer top="large" />
               <Button htmlTag="a" size="large" href="https://harsh.substack.com/welcome">Subscribe</Button>
-              <Spacer top="large" />
 
-              <Spacer top="medium" />
+              <Spacer top="xxlarge" />
+
               <Tweet />
           </Container>
         </Align>
