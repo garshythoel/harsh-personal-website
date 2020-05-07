@@ -99,11 +99,35 @@ body {
   top: 0;
   left: 80%;
 
+  overflow: hidden;
+
   transition: left 0.5s ease-in-out;
+}
+
+@keyframes slowscroll {
+  0% {
+    left: 0;
+  }
+  50% {
+    left: -40%;
+  }
+  100% {
+    left: 0%;
+  }
 }
 
 .bgimage img {
   height: 100%;
+
+  position: relative;
+
+  left: 0;
+
+  transition: left 5s linear;
+
+  animation-name: slowscroll;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
 }
 
 .main-content {
