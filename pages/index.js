@@ -15,7 +15,7 @@ export default function Home () {
       </Head>
       <div className="main-frame">
         <div className="main-content">
-          <text className="textSize-xl">harsh.yt</text>
+          <text className="title-text">harsh.yt</text>
           <div className="main-content-text">
             <p size="large">
               I write about&nbsp;

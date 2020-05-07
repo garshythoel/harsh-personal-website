@@ -17,6 +17,13 @@ body {
   margin: 0;
 }
 
+.title-text {
+  font-size: var(--fontSize-xl);
+  line-height: var(--lineHeight-xl);
+
+  margin-bottom: var(--space-l);
+}
+
 .main-frame {
   width: 100%;
   height: 100%;
@@ -52,6 +59,8 @@ body {
   transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 
   transform: scale(1);
+
+  margin: var(--space-m) 0;
 }
 
 .main-frame button:hover {
@@ -62,6 +71,10 @@ body {
 .main-content-text {
   font-size: var(--fontSize-m);
   line-height: var(--lineHeight-m);
+}
+
+.main-content-text p {
+  margin: var(--space-m) 0;
 }
 
 @media (max-width: 600px) {
