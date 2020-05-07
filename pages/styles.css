@@ -33,6 +33,32 @@ body {
   transition: padding 0.5s ease-in-out;
 }
 
+.main-frame button {
+  background-color: var(--c-primary);
+  color: #fff;
+  text-decoration: none !important;
+  box-sizing: border-box;
+  cursor: pointer;
+  border: none;
+  height: 42px;
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 10px 20px;
+  margin: 0;
+  margin-top: 0px;
+  opacity: 1;
+  outline: 0;
+
+  transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+
+  transform: scale(1);
+}
+
+.main-frame button:hover {
+  background-color: var(--c-primary-dark);
+  transform: scale(1.02);
+}
+
 .main-content-text {
   font-size: var(--fontSize-m);
   line-height: var(--lineHeight-m);
@@ -63,16 +89,6 @@ body {
   transition: left 0.5s ease-in-out;
 }
 
-/* .bgimage:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 20px;
-  height: 100%;
-  background-image: linear-gradient(to right, white, transparent);
-} */
-
 .bgimage img {
   height: 100%;
 }
@@ -86,12 +102,13 @@ body {
 
 a {
   color: var(--c-primary);
-  transition: color 0.2s ease-in-out;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
   transform: scale(1);
+  display: inline-block;
 }
 
 a:hover {
-  transform: scale(2);
+  transform: scale(1.02);
   color: var(--c-primary-light);
 }
 

@@ -55,8 +55,7 @@ export default function Home () {
             </p>
 
             <button
-              htmlTag="a"
-              size="large"
+              className="primary"
               target="_blank"
               href="https://harsh.substack.com/welcome"
             >
