@@ -18,9 +18,16 @@ export default function Home () {
           <text className="textSize-xl">harsh.yt</text>
           <div className="main-content-text">
             <p size="large">
-              {' '}
-              I write about inspiration and creativity in my daily life. <br />Here
-              are my{' '}
+              I write about&nbsp;
+              <a
+                rel="noopener noreferrer"
+                target="_blank"
+                href="https://harsh.substack.com"
+              >
+              creativity, inspiration and growth.
+              </a>
+            </p>
+            <p>Here are my&nbsp;
               <a
                 rel="noopener noreferrer"
                 target="_blank"
@@ -30,7 +37,6 @@ export default function Home () {
               </a>
               .
             </p>
-
             <p size="large">
               I once started a niche but popular{' '}
               <a target="_blank" rel="noopener noreferrer" href="https://youtube.com/riffshop">
@@ -47,13 +53,7 @@ export default function Home () {
                 Twitter@garshythoel
               </a>
             </p>
-            <p size="large">
-              If you&apos;d like to hear what i have to say, about myself, about
-              life and about a whole lot of other things, big and small. Signup
-              to my email list and I&apos;ll send you the first short story I
-              ever wrote + some music I’ve been working on.
-            </p>
-
+            <p>For long form thoughts on everything I&apos;ve mentioned, hit that subscribe button:</p>
             <button
               className="primary"
               target="_blank"
@@ -61,6 +61,7 @@ export default function Home () {
             >
               Subscribe
             </button>
+            <p className="textSize-s">(You will get an email once <i>every 2-ish weeks</i>, if inspiration has been abundant. That&apos;s wild right?)</p>
           </div>
 
           {/* <Tweet /> */}
