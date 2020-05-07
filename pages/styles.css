@@ -10,9 +10,569 @@ div#__next > div > div {
 body {
   width: 100%;
   height: 100%;
+  background-color: white;
 
-
-  font-family: 'Cormorant Garamond' !important;
+  overflow: hidden;
 
   margin: 0;
+}
+
+.main-frame {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: row;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transition: padding 0.5s ease-in-out;
+}
+
+.main-content-text {
+  font-size: var(--fontSize-m);
+  line-height: var(--lineHeight-m);
+}
+
+@media (max-width: 600px) {
+  .main-frame .main-content {
+    padding: var(--spaceframe-l);
+  }
+
+  .bgimage {
+    left: 90%;
+  }
+
+  .main-content-text {
+    font-size: var(--fontSize-s);
+    line-height: var(--lineHeight-s);
+  }
+}
+
+.bgimage {
+  height: 100%;
+  position: absolute;
+
+  top: 0;
+  left: 80%;
+
+  transition: left 0.5s ease-in-out;
+}
+
+/* .bgimage:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 100%;
+  background-image: linear-gradient(to right, white, transparent);
+} */
+
+.bgimage img {
+  height: 100%;
+}
+
+.main-content {
+  width: 80%;
+
+  padding: var(--spaceframe-xl);
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--c-primary);
+  transition: color 0.2s ease-in-out;
+  transform: scale(1);
+}
+
+a:hover {
+  transform: scale(2);
+  color: var(--c-primary-light);
+}
+
+.width-s {
+  width: var(--space-s);
+}
+.width-m {
+  width: var(--space-m);
+}
+.width-l {
+  width: var(--space-l);
+}
+.width-xl {
+  width: var(--space-xl);
+}
+.width-2xl {
+  width: var(--space-2xl);
+}
+.width-3xl {
+  width: var(--space-3xl);
+}
+.width-4xl {
+  width: var(--space-4xl);
+}
+.width-5xl {
+  width: var(--space-5xl);
+}
+
+.minWidth-s {
+  min-width: var(--space-s);
+}
+.minWidth-m {
+  min-width: var(--space-m);
+}
+.minWidth-l {
+  min-width: var(--space-l);
+}
+.minWidth-xl {
+  min-width: var(--space-xl);
+}
+.minWidth-2xl {
+  min-width: var(--space-2xl);
+}
+.minWidth-3xl {
+  min-width: var(--space-3xl);
+}
+.minWidth-4xl {
+  min-width: var(--space-4xl);
+}
+.minWidth-5xl {
+  min-width: var(--space-5xl);
+}
+
+.maxWidth-s {
+  max-width: var(--space-s);
+}
+.maxWidth-m {
+  max-width: var(--space-m);
+}
+.maxWidth-l {
+  max-width: var(--space-l);
+}
+.maxWidth-xl {
+  max-width: var(--space-xl);
+}
+.maxWidth-2xl {
+  max-width: var(--space-2xl);
+}
+.maxWidth-3xl {
+  max-width: var(--space-3xl);
+}
+.maxWidth-4xl {
+  max-width: var(--space-4xl);
+}
+.maxWidth-5xl {
+  max-width: var(--space-5xl);
+}
+
+.height-s {
+  height: var(--space-s);
+}
+.height-m {
+  height: var(--space-m);
+}
+.height-l {
+  height: var(--space-l);
+}
+.height-xl {
+  height: var(--space-xl);
+}
+.height-2xl {
+  height: var(--space-2xl);
+}
+.height-3xl {
+  height: var(--space-3xl);
+}
+.height-4xl {
+  height: var(--space-4xl);
+}
+.height-5xl {
+  height: var(--space-5xl);
+}
+
+.minHeight-s {
+  min-height: var(--space-s);
+}
+.minHeight-m {
+  min-height: var(--space-m);
+}
+.minHeight-l {
+  min-height: var(--space-l);
+}
+.minHeight-xl {
+  min-height: var(--space-xl);
+}
+.minHeight-2xl {
+  min-height: var(--space-2xl);
+}
+.minHeight-3xl {
+  min-height: var(--space-3xl);
+}
+.minHeight-4xl {
+  min-height: var(--space-4xl);
+}
+.minHeight-5xl {
+  min-height: var(--space-5xl);
+}
+
+.maxHeight-s {
+  max-height: var(--space-s);
+}
+.maxHeight-m {
+  max-height: var(--space-m);
+}
+.maxHeight-l {
+  max-height: var(--space-l);
+}
+.maxHeight-xl {
+  max-height: var(--space-xl);
+}
+.maxHeight-2xl {
+  max-height: var(--space-2xl);
+}
+.maxHeight-3xl {
+  max-height: var(--space-3xl);
+}
+.maxHeight-4xl {
+  max-height: var(--space-4xl);
+}
+.maxHeight-5xl {
+  max-height: var(--space-5xl);
+}
+
+.spacerRight-s {
+  margin-right: var(--space-s);
+}
+.spacerRight-m {
+  margin-right: var(--space-m);
+}
+.spacerRight-l {
+  margin-right: var(--space-l);
+}
+.spacerRight-xl {
+  margin-right: var(--space-xl);
+}
+
+.spacerLeft-s {
+  margin-left: var(--space-s);
+}
+.spacerLeft-m {
+  margin-left: var(--space-m);
+}
+.spacerLeft-l {
+  margin-left: var(--space-l);
+}
+.spacerLeft-xl {
+  margin-left: var(--space-xl);
+}
+
+.spacerTop-s {
+  margin-top: var(--space-s);
+}
+.spacerTop-m {
+  margin-top: var(--space-m);
+}
+.spacerTop-l {
+  margin-top: var(--space-l);
+}
+.spacerTop-xl {
+  margin-top: var(--space-xl);
+}
+
+.spacerBottom-s {
+  margin-bottom: var(--space-s);
+}
+.spacerBottom-m {
+  margin-bottom: var(--space-m);
+}
+.spacerBottom-l {
+  margin-bottom: var(--space-l);
+}
+.spacerBottom-xl {
+  margin-bottom: var(--space-xl);
+}
+
+.spaceframe-s {
+  padding: var(--spaceframe-s);
+}
+.spaceframe-m {
+  padding: var(--spaceframe-m);
+}
+.spaceframe-l {
+  padding: var(--spaceframe-l);
+}
+.spaceframe-xl {
+  padding: var(--spaceframe-xl);
+}
+
+.textSize-xs {
+  font-size: var(--fontSize-xs);
+  line-height: var(--lineHeight-xs);
+}
+
+.textSize-s {
+  font-size: var(--fontSize-s);
+  line-height: var(--lineHeight-s);
+}
+
+.textSize-m {
+  font-size: var(--fontSize-m);
+  line-height: var(--lineHeight-m);
+}
+
+.textSize-l {
+  font-size: var(--fontSize-l);
+  line-height: var(--lineHeight-l);
+}
+
+.textSize-xl {
+  font-size: var(--fontSize-xl);
+  line-height: var(--lineHeight-xl);
+}
+
+.fontWeight-400 {
+  font-weight: var(--fontWeight-400);
+}
+.fontWeight-700 {
+  font-weight: var(--fontWeight-700);
+}
+
+.c-primary-2xlight {
+  color: var(--c-primary-2xlight);
+}
+.c-primary-xlight {
+  color: var(--c-primary-xlight);
+}
+.c-primary-light {
+  color: var(--c-primary-light);
+}
+.c-primary {
+  color: var(--c-primary);
+}
+.c-primary-dark {
+  color: var(--c-primary-dark);
+}
+.c-primary-xdark {
+  color: var(--c-primary-xdark);
+}
+.c-primary-2xdark {
+  color: var(--c-primary-2xdark);
+}
+
+.bg-primary-2xlight {
+  background-color: var(--c-primary-2xlight);
+}
+.bg-primary-xlight {
+  background-color: var(--c-primary-xlight);
+}
+.bg-primary-light {
+  background-color: var(--c-primary-light);
+}
+.bg-primary {
+  background-color: var(--c-primary);
+}
+.bg-primary-dark {
+  background-color: var(--c-primary-dark);
+}
+.bg-primary-xdark {
+  background-color: var(--c-primary-xdark);
+}
+.bg-primary-2xdark {
+  background-color: var(--c-primary-2xdark);
+}
+
+.c-grey-1 {
+  color: var(--c-grey-1);
+}
+.c-grey-2 {
+  color: var(--c-grey-2);
+}
+.c-grey-3 {
+  color: var(--c-grey-3);
+}
+.c-grey-4 {
+  color: var(--c-grey-4);
+}
+.c-grey-5 {
+  color: var(--c-grey-5);
+}
+.c-grey-6 {
+  color: var(--c-grey-6);
+}
+.c-grey-7 {
+  color: var(--c-grey-7);
+}
+.c-grey-8 {
+  color: var(--c-grey-8);
+}
+
+.bg-grey-1 {
+  background-color: var(--c-grey-1);
+}
+.bg-grey-2 {
+  background-color: var(--c-grey-2);
+}
+.bg-grey-3 {
+  background-color: var(--c-grey-3);
+}
+.bg-grey-4 {
+  background-color: var(--c-grey-4);
+}
+.bg-grey-5 {
+  background-color: var(--c-grey-5);
+}
+.bg-grey-6 {
+  background-color: var(--c-grey-6);
+}
+.bg-grey-7 {
+  background-color: var(--c-grey-7);
+}
+.bg-grey-8 {
+  background-color: var(--c-grey-8);
+}
+
+.c-body {
+  color: var(--c-body);
+}
+.c-background {
+  color: var(--c-background);
+}
+
+.bg-body {
+  background-color: var(--c-body);
+}
+.bg-background {
+  background-color: var(--c-background);
+}
+
+:root {
+  --unit: 8px;
+  --fontFamily: -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --spaceIncrement: 2;
+
+  --space-s: var(--unit);
+  --space-m: calc(var(--unit) * var(--spaceIncrement));
+  --space-l: calc(var(--space-m) * var(--spaceIncrement));
+  --space-xl: calc(var(--space-l) * var(--spaceIncrement));
+  --space-2xl: calc(var(--space-xl) * var(--spaceIncrement));
+  --space-3xl: calc(var(--space-2xl) * var(--spaceIncrement));
+  --space-4xl: calc(var(--space-3xl) * var(--spaceIncrement));
+  --space-5xl: calc(var(--space-4xl) * var(--spaceIncrement));
+
+  --spaceframe-s: var(--space-s);
+  --spaceframe-m: var(--space-m);
+  --spaceframe-l: var(--space-l);
+  --spaceframe-xl: var(--space-xl);
+
+  --fontSize-xs: 12px;
+  --lineHeight-xs: calc(var(--unit) * 2);
+
+  --fontSize-s: 16px;
+  --lineHeight-s: calc(var(--unit) * 3);
+
+  --fontSize-m: 22px;
+  --lineHeight-m: calc(var(--unit) * 4);
+
+  --fontSize-l: 36px;
+  --lineHeight-l: calc(var(--unit) * 5);
+
+  --fontSize-xl: 44px;
+  --lineHeight-xl: calc(var(--unit) * 6);
+
+  --fontWeight-400: 400;
+  --fontWeight-700: 700;
+
+  --colorLightnessIncrement: 10%;
+  --c-primary-hue: 12;
+  --c-primary-saturation: 100%;
+  --c-primary-lightness: 36%;
+
+  --c-primary: hsl(
+    var(--c-primary-hue),
+    var(--c-primary-saturation),
+    var(--c-primary-lightness)
+  );
+
+  --c-primary-2xlight: hsl(
+    var(--c-primary-hue),
+    var(--c-primary-saturation),
+    calc(var(--c-primary-lightness) + var(--colorLightnessIncrement) * 3)
+  );
+  --c-primary-xlight: hsl(
+    var(--c-primary-hue),
+    var(--c-primary-saturation),
+    calc(var(--c-primary-lightness) + var(--colorLightnessIncrement) * 2)
+  );
+  --c-primary-light: hsl(
+    var(--c-primary-hue),
+    var(--c-primary-saturation),
+    calc(var(--c-primary-lightness) + var(--colorLightnessIncrement))
+  );
+
+  --c-primary-dark: hsl(
+    var(--c-primary-hue),
+    var(--c-primary-saturation),
+    calc(var(--c-primary-lightness) - var(--colorLightnessIncrement))
+  );
+  --c-primary-xdark: hsl(
+    var(--c-primary-hue),
+    var(--c-primary-saturation),
+    calc(var(--c-primary-lightness) - var(--colorLightnessIncrement) * 2)
+  );
+  --c-primary-2xdark: hsl(
+    var(--c-primary-hue),
+    var(--c-primary-saturation),
+    calc(var(--c-primary-lightness) - var(--colorLightnessIncrement) * 3)
+  );
+
+  --greyHue: 0;
+  --greySaturation: 0%;
+
+  --initialGreyLightness: 93%;
+  --greyscaleLightnessIncrement: 11%;
+
+  --c-grey-1: hsl(
+    var(--greyHue),
+    var(--greySaturation),
+    var(--initialGreyLightness)
+  );
+  --c-grey-2: hsl(
+    var(--greyHue),
+    var(--greySaturation),
+    calc(var(--initialGreyLightness) - var(--greyscaleLightnessIncrement) * 1)
+  );
+  --c-grey-3: hsl(
+    var(--greyHue),
+    var(--greySaturation),
+    calc(var(--initialGreyLightness) - var(--greyscaleLightnessIncrement) * 2)
+  );
+  --c-grey-4: hsl(
+    var(--greyHue),
+    var(--greySaturation),
+    calc(var(--initialGreyLightness) - var(--greyscaleLightnessIncrement) * 3)
+  );
+  --c-grey-5: hsl(
+    var(--greyHue),
+    var(--greySaturation),
+    calc(var(--initialGreyLightness) - var(--greyscaleLightnessIncrement) * 4)
+  );
+  --c-grey-6: hsl(
+    var(--greyHue),
+    var(--greySaturation),
+    calc(var(--initialGreyLightness) - var(--greyscaleLightnessIncrement) * 5)
+  );
+  --c-grey-7: hsl(
+    var(--greyHue),
+    var(--greySaturation),
+    calc(var(--initialGreyLightness) - var(--greyscaleLightnessIncrement) * 6)
+  );
+  --c-grey-8: hsl(
+    var(--greyHue),
+    var(--greySaturation),
+    calc(var(--initialGreyLightness) - var(--greyscaleLightnessIncrement) * 7)
+  );
 }
