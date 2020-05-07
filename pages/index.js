@@ -7,7 +7,7 @@ export default function Home () {
         <title>Hg</title>
         <meta
           name="description"
-          content="The personal website of Harshyt Goel."
+          content="I am an individual."
         />
         <meta name="language" content="English" />
         <meta name="googlebot" content="index,follow" />
