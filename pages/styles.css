@@ -40,7 +40,7 @@ body {
   transition: padding 0.5s ease-in-out;
 }
 
-.main-frame button {
+.main-frame a.subscribe-button {
   background-color: var(--c-primary);
   color: #fff;
   text-decoration: none !important;
@@ -50,7 +50,7 @@ body {
   height: 42px;
   border-radius: 4px;
   font-size: 16px;
-  padding: 10px 20px;
+  padding: 5px 20px;
   margin: 0;
   margin-top: 0px;
   opacity: 1;
@@ -61,9 +61,13 @@ body {
   transform: scale(1);
 
   margin: var(--space-m) 0;
+
+  vertical-align: middle;
+
+  font-family: var(--fontFamily);
 }
 
-.main-frame button:hover {
+.main-frame a.subscribe-button:hover {
   background-color: var(--c-primary-dark);
   transform: scale(1.02);
 }

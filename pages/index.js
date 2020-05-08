@@ -54,13 +54,14 @@ export default function Home () {
               </a>
             </p>
             <p>For long form thoughts on everything I&apos;ve mentioned, hit that subscribe button:</p>
-            <button
-              className="primary"
+            <a
+              className="subscribe-button"
               target="_blank"
+              rel="noopener noreferrer"
               href="https://harsh.substack.com/welcome"
             >
               Subscribe
-            </button>
+            </a>
             <p className="textSize-s">(You will get an email once <i>every 2-ish weeks</i>, if inspiration has been abundant. That&apos;s wild right?)</p>
           </div>
 
