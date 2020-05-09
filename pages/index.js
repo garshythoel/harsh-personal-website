@@ -1,4 +1,4 @@
-import { initGA, logEvent, logPageView } from './utilities/analytics'
+import { initGA, logEvent, logPageView } from '../utilities/analytics'
 
 import Head from 'next/head'
 import { useEffect } from 'react'
