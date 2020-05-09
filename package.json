@@ -16,6 +16,7 @@
     "prettier": "^2.0.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-ga": "^2.7.0",
     "react-media-hook": "^0.4.7",
     "react-twitter-embed": "^3.0.3"
   },

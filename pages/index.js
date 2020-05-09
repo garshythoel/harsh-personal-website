@@ -1,6 +1,18 @@
+import { initGA, logEvent, logPageView } from './utilities/analytics'
+
 import Head from 'next/head'
+import { useEffect } from 'react'
 
 export default function Home () {
+  useEffect(() => {
+    if (!window.GA_INITIALIZED) {
+      initGA()
+      window.GA_INITIALIZED = true
+    }
+
+    logPageView()
+  }, [])
+
   return (
     <>
       <Head>
@@ -20,6 +32,7 @@ export default function Home () {
             <p size="large">
               I write about&nbsp;
               <a
+                onClick={() => logEvent('User', 'Clicked Substack Text Link')}
                 rel="noopener noreferrer"
                 target="_blank"
                 href="https://harsh.substack.com"
@@ -29,6 +42,7 @@ export default function Home () {
             </p>
             <p>Here are my&nbsp;
               <a
+                onClick={() => logEvent('User', 'Clicked Rules To Life')}
                 rel="noopener noreferrer"
                 target="_blank"
                 href="https://www.notion.so/Harshyt-s-Working-Manual-62b0d9a324044d37bb67ebc19a7dc236"
@@ -39,22 +53,25 @@ export default function Home () {
             </p>
             <p size="large">
               I once started a niche but popular{' '}
-              <a target="_blank" rel="noopener noreferrer" href="https://youtube.com/riffshop">
+              <a
+                onClick={() => logEvent('User', 'Clicked Riffshop')}
+                target="_blank" rel="noopener noreferrer" href="https://youtube.com/riffshop">
                 youtube channel
               </a>
               &nbsp;and currently work at{' '}
-              <a target="_blank" rel="noopener noreferrer" href="https://loom.com/">
+              <a target="_blank" rel="noopener noreferrer" onClick={() => logEvent('User', 'Clicked Loom')} href="https://loom.com/">
                 loom.com
               </a>
             </p>
             <p size="large">
               I&apos;m also fairly active on{' '}
-              <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/garshythoel">
+              <a onClick={() => logEvent('User', 'Clicked Twitter')} target="_blank" rel="noopener noreferrer" href="https://twitter.com/garshythoel">
                 Twitter@garshythoel
               </a>
             </p>
             <p>For long form thoughts on everything I&apos;ve mentioned, hit that subscribe button:</p>
             <a
+              onClick={() => logEvent('User', 'Clicked Substack Button')}
               className="subscribe-button"
               target="_blank"
               rel="noopener noreferrer"
