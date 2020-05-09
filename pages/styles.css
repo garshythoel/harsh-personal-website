@@ -50,11 +50,16 @@ body {
   height: 42px;
   border-radius: 4px;
   font-size: 16px;
-  padding: 5px 20px;
+  padding: 0 20px;
   margin: 0;
   margin-top: 0px;
   opacity: 1;
   outline: 0;
+
+  display: inline-flex;
+
+  align-content: center;
+  align-items: center;
 
   transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
 
