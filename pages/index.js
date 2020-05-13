@@ -26,6 +26,17 @@ export default function Home() {
         <div className="main-content">
           <text className="title-text">harsh.yt</text>
           <div className="main-content-text">
+            <p>
+              I make{' '}
+              <GALink
+                eventLabel="Clicked Soundcloud Link"
+                rel="noopener noreferrer"
+                target="_blank"
+                to="https://soundcloud.com/desertelf"
+              >
+                music as an emotional release.
+              </GALink>
+            </p>
             <p size="large">
               I write about&nbsp;
               <GALink
@@ -94,12 +105,11 @@ export default function Home() {
               Subscribe
             </GALink>
             <p className="textSize-s">
-              (You will get an email once <i>every 2-ish weeks</i>, if
-              inspiration has been abundant. That&apos;s wild right?)
+              You will get an email once <i>every n-ish weeks</i> (n is
+              inversely proportional to abundance of inspiration). That&apos;s
+              wild right?
             </p>
           </div>
-
-          {/* <Tweet /> */}
         </div>
         <div className="bgimage">
           <img src="/background.jpeg" />
