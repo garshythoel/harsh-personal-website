@@ -99,6 +99,10 @@ body {
     font-size: var(--fontSize-s);
     line-height: var(--lineHeight-s);
   }
+
+  .main-content-text p {
+    margin: var(--space-s) 0;
+  }
 }
 
 .bgimage {
