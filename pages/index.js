@@ -26,7 +26,7 @@ export default function Home() {
         <div className="main-content">
           <text className="title-text">harsh.yt</text>
           <div className="main-content-text">
-            <p>
+            <p size="large">
               I make{' '}
               <GALink
                 eventLabel="Clicked Soundcloud Link"
@@ -34,11 +34,9 @@ export default function Home() {
                 target="_blank"
                 to="https://soundcloud.com/desertelf"
               >
-                music as an emotional release.
-              </GALink>
-            </p>
-            <p size="large">
-              I write about&nbsp;
+                music
+              </GALink>{' '}
+              and write about&nbsp;
               <GALink
                 eventLabel="Clicked Substack Text Link"
                 rel="noopener noreferrer"
