@@ -32,7 +32,7 @@ export default function Home() {
                 eventLabel="Clicked Soundcloud Link"
                 rel="noopener noreferrer"
                 target="_blank"
-                to="https://soundcloud.com/desertelf"
+                to="https://open.spotify.com/artist/0MgOnRVi0Is7MChDjdgxUA?si=7VhQw7S2QdaY0KrilwqZ-w"
               >
                 music
               </GALink>{' '}
