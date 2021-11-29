@@ -43,8 +43,9 @@ export default function Home() {
                 target="_blank"
                 to="https://harsh.substack.com"
               >
-                creativity, inspiration and growth.
+                creativity, inspiration and growth
               </GALink>
+              .
             </p>
             <p>
               Here are my&nbsp;
@@ -68,7 +69,7 @@ export default function Home() {
               >
                 youtube channel
               </GALink>
-              &nbsp;and currently work at{' '}
+              &nbsp;and was a founding engineer at{' '}
               <GALink
                 eventLabel="Clicked Loom"
                 target="_blank"
@@ -77,6 +78,7 @@ export default function Home() {
               >
                 loom.com
               </GALink>
+              .
             </p>
             <p size="large">
               I&apos;m also fairly active on{' '}
@@ -88,6 +90,16 @@ export default function Home() {
               >
                 Twitter@garshythoel
               </GALink>
+              &nbsp;and occasionally on{' '}
+              <GALink
+                eventLabel="Clicked Instagram"
+                target="_blank"
+                rel="noopener noreferrer"
+                to="https://instagram.com/garshythoel"
+              >
+                Instagram@garshythoel
+              </GALink>
+              .
             </p>
             <p>
               For long form thoughts on everything I&apos;ve mentioned, hit that
@@ -104,8 +116,7 @@ export default function Home() {
             </GALink>
             <p className="textSize-s">
               You will get an email once <i>every n-ish weeks</i> (n is
-              inversely proportional to abundance of inspiration). That&apos;s
-              wild right?
+              inversely proportional to abundance of inspiration).
             </p>
           </div>
         </div>
