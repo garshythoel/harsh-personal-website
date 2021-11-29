@@ -53,7 +53,7 @@ export default function Home() {
                 eventLabel="Clicked Rules To Life"
                 rel="noopener noreferrer"
                 target="_blank"
-                to="https://www.notion.so/Harshyt-s-Working-Manual-62b0d9a324044d37bb67ebc19a7dc236"
+                to="https://copper-echidna-e3a.notion.site/Harshyt-s-Rules-to-Life-85453aa06e3c4fc69d6dfa2c27f13317"
               >
                 rules to life
               </GALink>
