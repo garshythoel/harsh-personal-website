@@ -119,7 +119,7 @@ export default function Home() {
               inversely proportional to abundance of inspiration).
             </p>
           </div>
-          <p className="textSize-m">angel investments:</p>
+          <p className="textSize-m">investments:</p>
           <ul>
             <li>banana.dev (
               <GALink eventLabel="Clicked Banana"

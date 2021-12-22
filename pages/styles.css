@@ -142,6 +142,8 @@ body {
 .main-content {
   width: 80%;
 
+  overflow-y: scroll;
+
   padding: var(--spaceframe-xl);
   box-sizing: border-box;
 }
