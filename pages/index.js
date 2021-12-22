@@ -119,6 +119,66 @@ export default function Home() {
               inversely proportional to abundance of inspiration).
             </p>
           </div>
+          <p className="textSize-m">angel investments:</p>
+          <ul>
+            <li>banana.dev (
+              <GALink eventLabel="Clicked Banana"
+                target="_blank"
+                rel="noopener noreferrer"
+                to="https://www.banana.dev/">
+                  Link
+              </GALink>
+            )</li>
+            <li>higher ground education (
+              <GALink eventLabel="Clicked Higher Ground"
+                target="_blank"
+                rel="noopener noreferrer"
+                to="https://www.tohigherground.com/">
+                  Link
+              </GALink>
+            )</li>
+            <li>commaful (
+              <GALink eventLabel="Clicked Commaful"
+                target="_blank"
+                rel="noopener noreferrer"
+                to="https://commaful.com/">
+                  Link
+              </GALink>
+            )</li>
+            <li>replit (
+              <GALink eventLabel="Clicked Replit"
+                target="_blank"
+                rel="noopener noreferrer"
+                to="https://replit.com/">
+                  Link
+              </GALink>
+            )</li>
+            <li>stage technologies (
+              <GALink eventLabel="Clicked Stage"
+                target="_blank"
+                rel="noopener noreferrer"
+                to="https://twitter.com/pjdgallagher">
+                  Link
+              </GALink>
+            )</li>
+            <li>synthetix (
+              <GALink eventLabel="Clicked Synthetix"
+                target="_blank"
+                rel="noopener noreferrer"
+                to="https://synthetix.io/">
+                  Link
+              </GALink>
+            )</li>
+            <li>polymath (
+              <GALink eventLabel="Clicked Polymath"
+                target="_blank"
+                rel="noopener noreferrer"
+                to="https://polymath.network/">
+                  Link
+              </GALink>
+            )</li>
+            <li>...rip many many crypto startups...</li>
+          </ul>
         </div>
         <div className="bgimage">
           <img src="/background.jpeg" />
