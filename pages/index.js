@@ -161,6 +161,14 @@ export default function Home() {
                   Link
               </GALink>
             )</li>
+            <li>boom supersonic (
+              <GALink eventLabel="Clicked Boom"
+                target="_blank"
+                rel="noopener noreferrer"
+                to="https://boomsupersonic.com/">
+                  Link
+              </GALink>
+            )</li>
             <li>synthetix (
               <GALink eventLabel="Clicked Synthetix"
                 target="_blank"
