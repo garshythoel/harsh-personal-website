@@ -34,18 +34,8 @@ export default function Home() {
                 target="_blank"
                 to="https://open.spotify.com/artist/0MgOnRVi0Is7MChDjdgxUA?si=7VhQw7S2QdaY0KrilwqZ-w"
               >
-                music
-              </GALink>{' '}
-              and write about&nbsp;
-              <GALink
-                eventLabel="Clicked Substack Text Link"
-                rel="noopener noreferrer"
-                target="_blank"
-                to="https://harsh.substack.com"
-              >
-                creativity, inspiration and growth
+                music.
               </GALink>
-              .
             </p>
             <p>
               Here are my&nbsp;
@@ -115,8 +105,7 @@ export default function Home() {
               Subscribe
             </GALink>
             <p className="textSize-s">
-              You will get an email once <i>every n-ish weeks</i> (n is
-              inversely proportional to abundance of inspiration).
+              You will get an email once every few _insert time unit here_
             </p>
           </div>
           <p className="textSize-m">small checks:</p>
