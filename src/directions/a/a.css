@@ -512,7 +512,7 @@ html.js .untied > .kids > .kids-shot {
 .lamp {
   position: absolute;
   top: 0;
-  left: calc(100% - clamp(3rem, 7vw, 6rem)); /* in from the edge, so its glow falls on the page */
+  left: calc(100% - clamp(3rem, 7vw, 6rem)); /* in from the edge, with room for its rays */
   z-index: 3;
   width: 0;
   height: 0;
@@ -607,15 +607,10 @@ html:not(.js) .lamp {
   opacity: 0.6;
 }
 
-.glow {
-  /* multiplied into the paper, so it warms the page without washing out text beneath it */
-  mix-blend-mode: multiply;
-}
-
 /* drawn rays, like a lit bulb in a sketch. While the light is on they glow: a soft amber copy
    behind them brightens and fades, and the rays reach out a little as it does. */
 .rays {
-  transform-origin: 0 7.5px; /* the dome's centre, in the fixture's own units */
+  transform-origin: 0 2.6px; /* the centre of the dome's curve, in the fixture's own units */
   transition: opacity 0.3s ease;
 }
 
@@ -663,10 +658,6 @@ html:not(.js) .lamp {
 }
 
 [data-theme='dark'] .rays {
-  opacity: 0;
-}
-
-[data-theme='dark'] .glow {
   opacity: 0;
 }
 

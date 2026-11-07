@@ -8,7 +8,7 @@ function init(lamp: HTMLElement) {
   const root = document.documentElement;
   const handle = lamp.querySelector<HTMLButtonElement>('[data-switch]')!;
   const fixture = lamp.querySelector<SVGSVGElement>('[data-fixture]')!;
-  const glow = lamp.querySelector<SVGElement>('[data-glow]')!;
+  const rays = lamp.querySelector<SVGElement>('.rays')!;
   const hint = lamp.querySelector<HTMLElement>('[data-switch-hint]')!;
   const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
@@ -33,10 +33,10 @@ function init(lamp: HTMLElement) {
       label();
     };
     if (!reduce.matches) {
-      // a press on the fixture; switching on, the glow catches and flickers like a warming bulb
+      // a press on the fixture; switching on, the rays catch and flicker like a warming bulb
       fixture.animate([{ scale: '1' }, { scale: '0.94', offset: 0.35 }, { scale: '1' }], { duration: 260, easing: 'ease-out' });
       if (!dark) {
-        glow.animate([{ opacity: 0 }, { opacity: 0.7, offset: 0.2 }, { opacity: 0.25, offset: 0.35 }, { opacity: 1 }], {
+        rays.animate([{ opacity: 0 }, { opacity: 0.7, offset: 0.2 }, { opacity: 0.25, offset: 0.35 }, { opacity: 1 }], {
           duration: 520,
           easing: 'ease-out',
         });
