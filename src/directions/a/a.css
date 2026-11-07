@@ -390,15 +390,20 @@ summary.line:hover .mark {
   --coil: 0.659;
   stroke-dasharray: var(--coil) 2;
   stroke-dashoffset: 0;
+}
+
+/* the coil and its arrowhead turn together, about the coil's centre */
+.swirl-turn {
   transform-origin: 7px 6px;
-  transition:
-    stroke-dasharray 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    stroke 0.3s ease;
+}
+
+/* the arrowhead at the coil's outer end, pointing the way it unwinds */
+.swirl-tip {
+  fill: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html.js .tied:not(.untied) > summary .swirl {
+  html.js .tied:not(.untied) > summary .swirl-turn {
     animation: swirl-turn 9s linear infinite;
   }
 }

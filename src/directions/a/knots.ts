@@ -12,7 +12,8 @@ const kidsOf = (d: HTMLDetailsElement) => d.querySelector<HTMLElement>(':scope >
 const markOf = (d: HTMLDetailsElement) => d.querySelector<SVGSVGElement>(':scope > summary .mark.trail')!;
 const isUntied = (d: HTMLDetailsElement) => d.classList.contains('untied');
 
-const swirlOf = (d: HTMLDetailsElement) => markOf(d).querySelector<SVGPathElement>('.swirl')!;
+// the coil and its arrowhead, which turn together
+const swirlOf = (d: HTMLDetailsElement) => markOf(d).querySelector<SVGGElement>('.swirl-turn')!;
 
 // the slow turn stops where it is; spin on round to upright, so it comes to rest the same way each time
 function settle(d: HTMLDetailsElement) {
@@ -97,6 +98,12 @@ export function tie(d: HTMLDetailsElement, instant = false) {
 
 const toggle = (d: HTMLDetailsElement) => (isUntied(d) ? tie(d) : untie(d));
 
+// a toggle by the reader's own hand; remembered, so nothing opens or closes it for them after
+const byHand = (d: HTMLDetailsElement) => {
+  d.dataset.touched = '';
+  toggle(d);
+};
+
 export const allUntied = () => knots.every(isUntied);
 
 /** the lede's thread: one pull unties every knot on the page, top to bottom */
@@ -123,7 +130,7 @@ for (const d of knots) {
       skipClick = false;
       return;
     }
-    toggle(d);
+    byHand(d);
   });
   // the drawing always follows the real state, even when the browser opens or closes it
   // itself (find-in-page revealing a match inside, for one)
@@ -147,7 +154,7 @@ for (const d of knots) {
     if (dy > 3) skipClick = true;
     if (!pulled && dy > TUG) {
       pulled = true;
-      toggle(d);
+      byHand(d);
     }
   });
   const release = () => {
@@ -159,4 +166,21 @@ for (const d of knots) {
   };
   mark.addEventListener('pointerup', release);
   mark.addEventListener('pointercancel', release);
+}
+
+// the last section opens by itself once the reader has scrolled down to it, unless they have
+// already opened or closed it themselves
+const last = knots.filter((d) => !d.parentElement!.closest('[data-tied]')).at(-1);
+if (last) {
+  const stop = () => removeEventListener('scroll', check);
+  const check = () => {
+    if ('touched' in last.dataset || isUntied(last)) return stop();
+    if (scrollY < 40) return;
+    // once its line is fully on screen (it sits near the bottom, so it may never get higher)
+    if (last.querySelector(':scope > summary')!.getBoundingClientRect().bottom < innerHeight - 16) {
+      untie(last);
+      stop();
+    }
+  };
+  addEventListener('scroll', check, { passive: true });
 }

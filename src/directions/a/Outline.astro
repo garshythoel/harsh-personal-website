@@ -64,7 +64,11 @@ const swirl = 'M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27
     );
     const opens = (
       <svg class="mark trail" viewBox="1.5 0.5 11 11" aria-hidden="true" focusable="false">
-        <path class="swirl" pathLength="1" d={swirl} />
+        <!-- the coil and an arrowhead at its outer end turn together -->
+        <g class="swirl-turn">
+          <path class="swirl" pathLength="1" d={swirl} />
+          <path class="swirl-tip" d="M10.75 4.85L12.1 6.35L13.45 4.85" />
+        </g>
       </svg>
     );
     const dot = depth > 0 && (
