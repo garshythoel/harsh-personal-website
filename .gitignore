@@ -1,0 +1,9 @@
+node_modules
+dist
+.astro
+.context
+.claude
+.vercel
+# planning notes, not part of the site
+copy.md
+directions.md

@@ -1,0 +1,618 @@
+:root {
+  --paper: #f3f0e8;
+  --ink: #2a2824;
+  --ink-soft: #7a756c;
+  --thread: #33302b;
+  --line: color-mix(in srgb, var(--thread) 42%, var(--paper));
+  --halo: #f3f0e8;
+  --loops: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 7.4C2.6 7.6 5.6 5 5 2.6 4.6.9 2.3 1.7 2.8 4.1 3.3 6.7 6.7 7.9 10 7.2' fill='none' stroke='%232a2824' stroke-width='.75' stroke-linecap='round'/%3E%3C/svg%3E");
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16 0 0 0 0 .15 0 0 0 0 .13 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --gutter: clamp(1.5rem, 6vw, 6rem);
+  color-scheme: light;
+}
+
+/* dark only when the lamp is switched off, never from the system setting */
+:root[data-theme='dark'] {
+  --paper: #1a1917;
+  --ink: #e8e3d9;
+  --ink-soft: #9b958b;
+  --thread: #ddd7cb;
+  --line: color-mix(in srgb, var(--thread) 38%, var(--paper));
+  --halo: #1a1917;
+  --loops: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 7.4C2.6 7.6 5.6 5 5 2.6 4.6.9 2.3 1.7 2.8 4.1 3.3 6.7 6.7 7.9 10 7.2' fill='none' stroke='%23e8e3d9' stroke-width='.75' stroke-linecap='round'/%3E%3C/svg%3E");
+  color-scheme: dark;
+}
+
+html {
+  min-height: 100%;
+  background: var(--paper) var(--grain);
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: 'Commissioner Variable', ui-sans-serif, system-ui, sans-serif;
+  font-variation-settings: 'FLAR' 60;
+  font-weight: 380;
+  font-size: 1rem;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.24em;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  transition: text-decoration-color 0.2s;
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.sheet {
+  position: relative;
+  max-width: 40rem; /* ~60 characters a line at the main bullets' size */
+  margin: 0;
+  padding: 0 var(--gutter) 5rem;
+}
+
+.name {
+  /* the header: the name set large, its capitals touching the top of the window */
+  width: max-content;
+  /* trimmed to the capitals, the h, t and l rise 0.03em higher; give that back so they just touch */
+  margin: 0.03em 0 clamp(2rem, 5vw, 4rem);
+  font-size: clamp(2.75rem, 0.4rem + 9.5vw, 9rem);
+  line-height: 1;
+  font-weight: 460;
+  font-variation-settings: 'FLAR' 100;
+  letter-spacing: -0.035em;
+  color: var(--ink);
+  text-box: trim-both cap alphabetic;
+}
+
+/* where the trim is not supported, pull off the space above the tallest letters by hand
+   (measured: they start 0.155em below the top of the line) */
+@supports not (text-box: trim-both cap alphabetic) {
+  .name {
+    margin-top: -0.155em;
+  }
+}
+
+.lede {
+  /* the thread hanging from the full stop just falls over whatever is below */
+  margin: 0 0 clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.625rem, 1.05rem + 2.4vw, 2.75rem);
+  line-height: 1.22;
+  font-weight: 320;
+  font-variation-settings: 'FLAR' 100;
+  letter-spacing: -0.012em;
+  text-wrap: balance;
+}
+
+.knot {
+  display: inline-block;
+}
+
+.tie {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  vertical-align: baseline;
+}
+
+/* the thread */
+.rope {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.rope path {
+  fill: none;
+  stroke: var(--thread);
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+html:not(.js) .rope,
+html:not(.js) .pull {
+  display: none;
+}
+
+
+.pull,
+.switch {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pull {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: grab;
+  touch-action: none;
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+
+.pull:active {
+  cursor: grabbing;
+}
+
+.pull:focus-visible {
+  outline: 1px solid var(--ink-soft);
+  outline-offset: -12px;
+}
+
+.pull-hint {
+  position: absolute;
+  left: 36px;
+  top: 50%;
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  opacity: 0;
+  transform: translate(-4px, -50%);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+  pointer-events: none;
+}
+
+.pull:hover .pull-hint,
+.pull:focus-visible .pull-hint,
+.sheet.hinting .pull-hint {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+.sheet.held .pull-hint {
+  opacity: 0;
+}
+
+/* the outline. One spatial system for the whole page:
+   left edges   L0 the page edge (name, heading, footer, every top-level bullet), L1 = L0 + --gut
+                (top-level text), L2 = L1 + --gut (what a line holds); the years end just left of L0
+   vertical     0.5rem / 1rem / 2rem / 4rem, and nothing else
+   A line with more under it has a swirl you tap to open; a line without has a plain bullet. */
+.outline {
+  /* bullets are drawn on a 14×22 grid, 1.25rem wide: --u is one grid unit */
+  --u: calc(1.25rem / 14);
+  --gut: 2rem; /* indent per level: a 1.25rem bullet, a 0.75rem gap, then the text */
+  --mx: calc(7 * var(--u) - var(--gut)); /* the bullet's centre, from its text */
+  --mark-top: calc(0.75em - 6 * var(--u)); /* puts the bullet on the first line's centre (half of 1.5) */
+  margin: 0;
+  padding: 0 0 0 var(--gut);
+  list-style: none;
+  line-height: 1.5;
+}
+
+/* levels: the top lines are the voice; what hangs under them is a touch smaller but just as
+   dark (a lighter ink made it hard to read), and a swirl inside them is a grey label */
+.depth-0 {
+  font-size: clamp(1.125rem, 0.95rem + 0.75vw, 1.375rem); /* 18px on a phone, 22px wide */
+}
+
+/* the years, as a small heading over each top-level line: 'Present – 2024'. Lines that ran side
+   by side (Meta and the channel) share one heading, and sit close under it as a pair. */
+.when {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+  margin-bottom: 0.35rem;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.when > .to {
+  font-weight: 400;
+  color: var(--line);
+}
+
+.depth-0 > li.shares-years {
+  padding-bottom: 0.5rem;
+}
+
+/* on a phone the same edges, a step tighter */
+@media (max-width: 40rem) {
+  .outline {
+    --gut: 1.5rem;
+  }
+}
+
+
+.outline:not(.depth-0) {
+  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.1875rem); /* 17px to 19px */
+  font-weight: 400;
+  letter-spacing: normal;
+  color: var(--ink);
+}
+
+.outline:not(.depth-0) > li:has(> .tied) {
+  letter-spacing: 0.01em;
+}
+
+.outline:not(.depth-0) > li > .tied > summary .text {
+  color: var(--ink-soft);
+  transition: color 0.2s ease;
+}
+
+.outline:not(.depth-0) > li > .tied > summary:hover .text {
+  color: var(--ink);
+}
+
+.outline li {
+  position: relative;
+  /* 1rem between sibling lines: clearly more than the leading inside a line */
+  padding-bottom: 1rem;
+}
+
+.depth-0 > li {
+  font-weight: 430;
+  padding-bottom: 2rem; /* 2rem between top-level entries */
+}
+
+/* the last entry of a list leaves the space after it to what follows */
+.depth-0 > li:last-child {
+  padding-bottom: 0;
+}
+
+/* Things I feel strongly about closes the page: a 4rem break after the timeline, the links 2rem under it */
+.depth-0 + .depth-0 {
+  margin-top: 4rem;
+}
+
+.line {
+  position: relative;
+  display: block;
+  text-wrap: pretty;
+}
+
+summary.line {
+  cursor: pointer;
+  list-style: none;
+  transition: padding-bottom 0.25s ease;
+}
+
+/* an open knot leaves a breath before the first thing it holds */
+.untied > summary.line {
+  padding-bottom: 0.5rem;
+}
+
+summary.line::-webkit-details-marker {
+  display: none;
+}
+
+summary.line:focus-visible {
+  outline: none;
+}
+
+/* keyboard focus: a soft underline under the line, not a box around it */
+summary.line:focus-visible .text {
+  text-decoration: underline 1px var(--ink-soft);
+  text-underline-offset: 0.28em;
+}
+
+.mark {
+  position: absolute;
+  left: calc(var(--mx) - 7 * var(--u));
+  top: var(--mark-top);
+  width: calc(14 * var(--u));
+  height: calc(22 * var(--u));
+  overflow: visible;
+  /* a bigger hit area to grab, without moving the drawing */
+  padding: 8px 10px;
+  margin: -8px -10px;
+  box-sizing: content-box;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: translate 0.2s ease;
+}
+
+.tied > summary .mark {
+  cursor: grab;
+}
+
+summary.line:hover .mark {
+  translate: 0 1px;
+}
+
+.mark path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* a plain bullet, in the colour of its line */
+.mark .dot {
+  fill: currentColor;
+}
+
+/* the swirl's path coils from its centre outward, then runs on as a short stem that is never
+   shown: only the coil (its first --coil of the path) is drawn. Closed, it turns slowly; open, it
+   comes to rest. */
+.swirl {
+  --coil: 0.659;
+  stroke-dasharray: var(--coil) 2;
+  stroke-dashoffset: 0;
+  transform-origin: 7px 6px;
+  transition:
+    stroke-dasharray 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    stroke 0.3s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.js .tied:not(.untied) > summary .swirl {
+    animation: swirl-turn 9s linear infinite;
+  }
+}
+
+@keyframes swirl-turn {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.kids.moving {
+  overflow: hidden;
+}
+
+/* closed (or closing): what it holds is gathered away, quickly */
+html.js .tied > .kids > .outline > li > .line,
+html.js .tied > .kids > .outline > li > details > .line {
+  opacity: 0;
+  translate: -4px 0;
+  transition:
+    opacity 0.14s ease,
+    translate 0.14s ease;
+}
+
+/* opening: the lines under it come in one after another */
+html.js .untied > .kids > .outline > li > .line,
+html.js .untied > .kids > .outline > li > details > .line {
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    opacity 0.4s ease calc(0.15s + var(--i) * 0.06s),
+    translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.15s + var(--i) * 0.06s);
+}
+
+/* a picture under its line, set to the text's width */
+.shot {
+  display: block;
+  width: 100%;
+  max-width: 16rem;
+  height: auto;
+  margin: 0.5rem 0 0;
+  border-radius: 6px;
+  background: var(--line);
+}
+
+/* a smaller grey line under a line's text */
+.subtitle {
+  display: block;
+  margin-top: 0.25rem; /* held to its title */
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+/* a line held open: what it holds is simply there, a little below its subtitle */
+.held-open + .kids {
+  margin-top: 1rem;
+}
+
+.contact {
+  margin-top: 2rem;
+  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.1875rem);
+}
+
+/* the light: a small dome fixed to the top edge of the page, to the right of the text */
+.lamp {
+  position: absolute;
+  top: 0;
+  left: calc(100% - 2.75rem);
+  z-index: 3;
+  width: 0;
+  height: 0;
+}
+
+html:not(.js) .lamp {
+  display: none;
+}
+
+.switch {
+  position: absolute;
+  left: -26px;
+  top: 0;
+  width: 52px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.switch:focus-visible {
+  outline: none;
+}
+
+.switch:focus-visible .dome {
+  stroke-width: 1.6;
+}
+
+.fixture {
+  position: absolute;
+  left: 6px;
+  top: 0;
+  overflow: visible;
+  transform-origin: 50% 0;
+  pointer-events: none;
+}
+
+.plate,
+.dome,
+.seam {
+  stroke: var(--thread);
+  stroke-width: 1.1;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.plate {
+  fill: var(--paper);
+}
+
+.dome {
+  fill: #fbf2dc;
+}
+
+.seam {
+  fill: none;
+  stroke: #d9b77a;
+  stroke-width: 0.9;
+}
+
+[data-theme='dark'] .dome {
+  fill: var(--paper);
+}
+
+[data-theme='dark'] .seam {
+  stroke: var(--ink-soft);
+  opacity: 0.6;
+}
+
+[data-theme='dark'] .glow {
+  opacity: 0;
+}
+
+.switch-hint {
+  position: absolute;
+  right: 46px;
+  top: 4px;
+  font-size: 0.8125rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  opacity: 0;
+  transform: translateX(4px);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+  pointer-events: none;
+}
+
+.switch:hover .switch-hint,
+.switch:focus-visible .switch-hint {
+  opacity: 1;
+  transform: none;
+}
+
+/* the wind, seen in passing */
+.wind-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.puff {
+  position: absolute;
+  overflow: visible;
+}
+
+.puff path {
+  fill: none;
+  stroke: var(--ink-soft);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 0.38 1;
+  stroke-dashoffset: 0.38;
+}
+
+/* switching: the new light spreads out from the bulb, or the old light falls back into it */
+::view-transition {
+  pointer-events: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+.lights-on::view-transition-new(root) {
+  animation: light-spread 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+.lights-off::view-transition-old(root) {
+  z-index: 1;
+  animation: light-fall 0.5s cubic-bezier(0.55, 0, 0.8, 0.3) both;
+}
+
+@keyframes light-spread {
+  from {
+    clip-path: circle(0 at var(--bx) var(--by));
+  }
+  to {
+    clip-path: circle(var(--br) at var(--bx) var(--by));
+  }
+}
+
+@keyframes light-fall {
+  from {
+    clip-path: circle(var(--br) at var(--bx) var(--by));
+  }
+  to {
+    clip-path: circle(0 at var(--bx) var(--by));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .switch-hint,
+  .pull-hint,
+  .mark,
+  .mark path,
+  .line,
+  .swirl {
+    transition: none !important;
+  }
+}
