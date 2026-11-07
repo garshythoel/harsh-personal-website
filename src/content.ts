@@ -112,7 +112,7 @@ export const beliefs: Item = {
     { text: 'Music and singing' },
     { text: 'Twitter / X' },
     { text: 'Space and Nuclear Energy' },
-    { text: 'The incessant push and pull of everything on this list' },
+    { text: 'The constant attempts and futility of trying to balance everything on this list' },
     { text: 'Others…' },
   ],
 };
