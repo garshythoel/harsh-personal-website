@@ -106,15 +106,29 @@ const byHand = (d: HTMLDetailsElement) => {
 
 export const allUntied = () => knots.every(isUntied);
 
+// When the first section a pull will change is off screen (on a phone it always is), glide down so
+// its line sits a quarter of the way down the window, and only then let the sections open or
+// close, so the reader sees it happen rather than nothing at all. Returns how long to wait.
+function bringIntoView(d?: HTMLDetailsElement) {
+  if (!d) return 0;
+  const r = d.querySelector(':scope > summary')!.getBoundingClientRect();
+  if (r.top >= 0 && r.bottom <= innerHeight * 0.7) return 0;
+  scrollTo({ top: scrollY + r.top - innerHeight * 0.25, behavior: reduce.matches ? 'auto' : 'smooth' });
+  return reduce.matches ? 0 : 550;
+}
+
 /** the lede's thread: one pull unties every knot on the page, top to bottom */
 export function untieAll() {
-  knots.filter((d) => !isUntied(d)).forEach((d, i) => setTimeout(() => untie(d), reduce.matches ? 0 : i * 90));
+  const todo = knots.filter((d) => !isUntied(d));
+  const wait = bringIntoView(todo[0]);
+  todo.forEach((d, i) => setTimeout(() => untie(d), wait + (reduce.matches ? 0 : i * 90)));
 }
 
 /** and pulled again, ties them all back up, bottom to top */
 export function tieAll() {
   const outer = knots.filter((d) => d.open && !d.parentElement!.closest('[data-tied]'));
-  outer.reverse().forEach((d, i) => setTimeout(() => tie(d), reduce.matches ? 0 : i * 80));
+  const wait = bringIntoView(outer[0]);
+  outer.reverse().forEach((d, i) => setTimeout(() => tie(d), wait + (reduce.matches ? 0 : i * 80)));
 }
 
 for (const d of knots) {

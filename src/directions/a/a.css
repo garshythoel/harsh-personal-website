@@ -423,7 +423,8 @@ summary.line:hover .mark {
 
 /* closed (or closing): what it holds is gathered away, quickly */
 html.js .tied > .kids > .outline > li > .line,
-html.js .tied > .kids > .outline > li > details > .line {
+html.js .tied > .kids > .outline > li > details > .line,
+html.js .tied > .kids > .outline > li > .kids {
   opacity: 0;
   translate: -4px 0;
   transition:
@@ -432,8 +433,10 @@ html.js .tied > .kids > .outline > li > details > .line {
 }
 
 /* opening: the lines under it come in one after another */
+/* a line that is always open brings its own list in with it */
 html.js .untied > .kids > .outline > li > .line,
-html.js .untied > .kids > .outline > li > details > .line {
+html.js .untied > .kids > .outline > li > details > .line,
+html.js .untied > .kids > .outline > li > .kids {
   opacity: 1;
   translate: 0 0;
   transition:
