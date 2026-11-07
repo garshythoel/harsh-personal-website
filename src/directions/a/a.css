@@ -456,6 +456,30 @@ html.js .untied > .kids > .outline > li > details > .line {
   margin-top: 1rem;
 }
 
+/* portrait photos run narrower, so they weigh about the same as the landscape ones */
+.shot.tall {
+  max-width: 12rem;
+}
+
+/* a photo that belongs to a line that opens sits at the top of what it holds, on its text edge */
+.kids-shot {
+  padding: 0 0 1rem var(--gut);
+}
+
+.kids-shot .shot {
+  margin-top: 0;
+}
+
+html.js .tied > .kids > .kids-shot {
+  opacity: 0;
+  transition: opacity 0.14s ease;
+}
+
+html.js .untied > .kids > .kids-shot {
+  opacity: 1;
+  transition: opacity 0.45s ease 0.12s;
+}
+
 .contact {
   margin-top: 2rem;
   font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.1875rem);

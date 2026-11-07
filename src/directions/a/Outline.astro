@@ -45,6 +45,20 @@ const swirl = 'M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27
       <span class="text">{item.text}</span>
     );
     const subtitle = item.subtitle && <span class="subtitle">{item.subtitle}</span>;
+    // portrait photos are set narrower, so they carry about the same weight as landscape ones
+    const shot = item.image && (
+      <Picture
+        class:list={['shot', { tall: item.image.src.height > item.image.src.width }]}
+        src={item.image.src}
+        alt={item.image.alt}
+        widths={[320, 480, 720]}
+        sizes="(min-width: 40rem) 16rem, 60vw"
+        formats={['avif']}
+        fallbackFormat="webp"
+        loading="lazy"
+        decoding="async"
+      />
+    );
     const opens = (
       <svg class="mark trail" viewBox="1.5 0.5 11 11" aria-hidden="true" focusable="false">
         <path class="swirl" pathLength="1" d={swirl} />
@@ -82,6 +96,7 @@ const swirl = 'M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27
             {subtitle}
           </summary>
           <div class="kids" data-kids>
+            {shot && <div class="kids-shot">{shot}</div>}
             <Astro.self items={item.children} depth={depth + 1} />
           </div>
         </details>
@@ -90,19 +105,7 @@ const swirl = 'M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27
           {dot}
           {text}
           {subtitle}
-          {item.image && (
-            <Picture
-              class="shot"
-              src={item.image.src}
-              alt={item.image.alt}
-              widths={[320, 480, 720]}
-              sizes="(min-width: 40rem) 16rem, 60vw"
-              formats={['avif']}
-              fallbackFormat="webp"
-              loading="lazy"
-              decoding="async"
-            />
-          )}
+          {shot}
         </div>
       )}
     </li>

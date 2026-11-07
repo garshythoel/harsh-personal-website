@@ -1,4 +1,5 @@
 import inku from './assets/inku.webp';
+import playButton from './assets/riffshop-play-button.webp';
 
 // Single source for the page's copy. Anything still in [brackets] is a placeholder and is not shown.
 
@@ -26,7 +27,7 @@ export type Item = {
   subtitle?: string;
   /** always open, with no swirl to tug: what it holds is shown from the start */
   open?: boolean;
-  /** a picture shown under the line */
+  /** a picture shown under the line (for a line that opens, at the top of what it holds) */
   image?: { src: ImageMetadata; alt: string };
   children?: Item[];
 };
@@ -82,6 +83,10 @@ export const outline: Item[] = [
     text: 'Started a successful youtube channel.',
     href: 'https://www.youtube.com/riffshop',
     linkText: 'youtube channel',
+    image: {
+      src: playButton,
+      alt: 'The YouTube silver play button presented to Riffshop for passing 100,000 subscribers.',
+    },
     children: [{ text: 'I also sing at my friends’ weddings' }, { text: 'and at my own' }],
   },
 ];
