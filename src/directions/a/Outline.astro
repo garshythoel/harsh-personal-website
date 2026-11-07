@@ -93,7 +93,7 @@ const swirl = 'M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27
         <details class="tied" data-tied>
           <summary class="line">
             {dot}
-            {text}{opens}
+            {text}{opens}{item.hint && <span class="hint">{' '}{item.hint}</span>}
             {subtitle}
           </summary>
           <div class="kids" data-kids>

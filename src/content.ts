@@ -25,6 +25,8 @@ export type Item = {
   years?: string;
   /** a smaller line under the text */
   subtitle?: string;
+  /** a quiet aside after a line that opens, after its swirl */
+  hint?: string;
   /** always open, with no swirl to tug: what it holds is shown from the start */
   open?: boolean;
   /** a picture shown under the line (for a line that opens, at the top of what it holds) */
@@ -54,6 +56,7 @@ export const outline: Item[] = [
       { text: 'Started a parallel consumer app version doing >\u00a0$100k/yr in revenue (and growing)' },
       {
         text: 'Learnt a TON',
+        hint: '(tap to learn what I learnt)',
         children: [
           { text: 'Bootstrapping a hardware startup is a great idea to learn a lot of stuff' },
           { text: 'CAD/3D Printing/Pantone colors' },
