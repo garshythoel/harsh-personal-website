@@ -1,5 +1,6 @@
 import inku from './assets/inku.webp';
 import playButton from './assets/riffshop-play-button.webp';
+import solarpunk from './assets/solarpunk.webp';
 
 // Single source for the page's copy. Anything still in [brackets] is a placeholder and is not shown.
 
@@ -8,7 +9,7 @@ export const name = 'Harshyt Goel';
 export const lede = 'I pull threads to see where they go.';
 
 export const contact = [
-  { label: 'email', href: 'mailto:[email]' },
+  { label: 'email', href: 'mailto:harshyt.goel@gmail.com' },
   { label: 'x', href: 'https://x.com/garshythoel' },
   { label: 'github', href: 'https://github.com/garshythoel' },
 ];
@@ -98,13 +99,19 @@ export const outline: Item[] = [
 export const beliefs: Item = {
   text: 'Things I feel strongly about',
   children: [
-    { text: 'My family' },
+    { text: 'Family' },
     { text: 'The Dream Machine, by M. Mitchell Waldrop' },
-    { text: 'The agentic evolution' },
-    { text: 'A desire to build' },
+    {
+      text: 'The future should be solarpunk',
+      image: {
+        src: solarpunk,
+        alt: 'Google’s AI Overview: Solarpunk is an optimistic speculative movement, genre of art and literature, and lifestyle that envisions a sustainable, post-scarcity, and community-driven future.',
+      },
+    },
+    { text: 'Just keep building/making/creating things.' },
     { text: 'Music and singing' },
     { text: 'Twitter / X' },
-    { text: 'SpaceX' },
+    { text: 'Space and Nuclear Energy' },
     { text: 'The incessant push and pull of everything on this list' },
     { text: 'Others…' },
   ],

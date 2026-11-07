@@ -457,6 +457,12 @@ html.js .untied > .kids > .outline > li > details > .line {
   max-width: 12rem;
 }
 
+/* wide screenshots run the full text width, so the words in them stay readable */
+.shot.wide {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
 /* a photo that belongs to a line that opens sits at the top of what it holds, on its text edge */
 .kids-shot {
   padding: 0 0 1rem var(--gut);
