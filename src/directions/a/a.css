@@ -29,6 +29,9 @@ html {
 }
 
 body {
+  /* iOS Safari 26 paints its status bar one solid colour, taken from body's background-color
+     (theme-color is ignored), so body carries the paper colour too and the two always match */
+  background: var(--paper) var(--grain);
   margin: 0;
   color: var(--ink);
   font-family: 'Commissioner Variable', ui-sans-serif, system-ui, sans-serif;
@@ -522,9 +525,15 @@ html.js .untied > .kids > .kids-shot {
   background: var(--thread);
 }
 
-/* on a phone the top of the page meets the browser's own bar (on iOS the status bar), so it is
-   not a clean edge: the page starts a little below it, and the light hangs from it on a cord */
+/* on a phone the page starts just below the browser's status bar, which Safari fills with the
+   page's flat paper colour (no texture, no gradients). So the paper goes flat here too, making
+   the bar and the page one surface: the cord seems to come down from the top of the screen. */
 @media (max-width: 40rem) {
+  html,
+  body {
+    background-image: none;
+  }
+
   .sheet {
     padding-top: 1.75rem;
   }

@@ -35,13 +35,22 @@ const ledeText = lede.replace(/\.$/, '');
           <stop offset="0.55" stop-color="#f9c978" stop-opacity="0.2" />
           <stop offset="1" stop-color="#f9c978" stop-opacity="0" />
         </radialGradient>
+        <!-- the glow fades out toward the top of the page, so it never stops in a hard line
+             where the page meets the browser's status bar -->
+        <linearGradient id="glow-fade-ramp" gradientUnits="userSpaceOnUse" x1="0" y1="-24" x2="0" y2="26">
+          <stop offset="0" stop-color="#000" />
+          <stop offset="1" stop-color="#fff" />
+        </linearGradient>
+        <mask id="glow-fade" maskUnits="userSpaceOnUse" x="-220" y="-220" width="440" height="440">
+          <rect x="-220" y="-220" width="440" height="440" fill="url(#glow-fade-ramp)" />
+        </mask>
         <filter id="ray-glow" x="-50%" y="-50%" width="200%" height="200%">
           <feGaussianBlur stdDeviation="1.8" />
         </filter>
       </defs>
       <!-- while the light is on: a warm pool of light, and short drawn rays around the dome -->
       <!-- the glow is centred on the dome; the gradient runs from its middle out to the edge -->
-      <ellipse class="glow" data-glow cx="0" cy="8" rx="180" ry="160" fill="url(#lamp-glow)" />
+      <ellipse class="glow" data-glow cx="0" cy="8" rx="180" ry="160" fill="url(#lamp-glow)" mask="url(#glow-fade)" />
       <!-- the rays, and a soft amber copy of them behind that brightens and fades -->
       <g class="rays">
         <path class="rays-glow" d="M-15.7 10.8L-23.0 12.4M-12.6 17.4L-18.5 22.0M-7.0 21.9L-10.3 28.6M0.0 23.5L0.0 31.0M7.0 21.9L10.3 28.6M12.6 17.4L18.5 22.0M15.7 10.8L23.0 12.4" filter="url(#ray-glow)" />
