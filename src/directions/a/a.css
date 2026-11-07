@@ -76,8 +76,10 @@ a:hover {
 .name {
   /* the header: the name set large, its capitals touching the top of the window */
   width: max-content;
-  /* trimmed to the capitals, the h, t and l rise 0.03em higher; give that back so they just touch */
-  margin: 0.03em 0 clamp(0.75rem, 1.5vw, 1.25rem);
+  /* trimmed to the capitals, the h, t and l rise 0.03em higher; give that back so they just touch.
+     Trimmed to the baseline too, so the tail of the y (about 0.2em) hangs below: the gap to the
+     tagline is measured from the bottom of that tail, the same rhythm as the link-preview card */
+  margin: 0.03em 0 calc(0.2em + clamp(0.875rem, 1.6vw, 1.5rem));
   font-size: clamp(2.75rem, 0.4rem + 9.5vw, 9rem);
   line-height: 1;
   font-weight: 460;
@@ -96,8 +98,9 @@ a:hover {
 }
 
 .tagline {
-  /* a quiet caption to the name: what he does, before what he believes */
-  margin: 0 0 clamp(2rem, 5vw, 4rem);
+  /* a quiet caption to the name: what he does, before what he believes. About twice the gap
+     under the name, so name and tagline read as one block and the lede as the next beat */
+  margin: 0 0 clamp(1.75rem, 3.2vw, 3rem);
   font-size: clamp(1.0625rem, 0.95rem + 0.55vw, 1.375rem);
   line-height: 1.4;
   font-weight: 400;
