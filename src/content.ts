@@ -47,7 +47,7 @@ export const outline: Item[] = [
     linkText: 'Inkboard Inc.',
     children: [
       {
-        text: 'Sold ~$300K pre-orders for Inku on Kickstarter',
+        text: '~$300K in Inku pre\u2011orders on Kickstarter', // a hyphen that never breaks the word
         href: 'https://www.kickstarter.com/projects/desertelf/inku-your-friendly-smart-and-distraction-free-calendar',
         linkText: 'Kickstarter',
         image: {
@@ -55,11 +55,11 @@ export const outline: Item[] = [
           alt: 'a distraction-free e-ink device.',
         },
       },
-      { text: 'Delivered said orders as the only Full Time employee at the company.' },
-      { text: 'Started a parallel consumer app version doing >\u00a0$100k/yr in revenue (and growing)' },
+      { text: 'Delivering every order as the only full-time employee at the company.' },
+      { text: 'Running a parallel consumer app doing >\u00a0$100k/yr in revenue (and growing)' },
       {
-        text: 'Learnt a TON',
-        hint: '(tap to learn what I learnt)',
+        text: 'Learning a TON',
+        hint: '(tap to see what I’m learning)',
         children: [
           { text: 'Bootstrapping a hardware startup is a great idea to learn a lot of stuff' },
           { text: 'CAD/3D Printing/Pantone colors' },
@@ -67,7 +67,7 @@ export const outline: Item[] = [
           { text: 'Shipping/Fulfillment and Tariff laws (ask me about procuring my display panels...)' },
           { text: 'Hiring/Firing fast' },
           {
-            text: 'Scaled myself to way beyond what I could’ve handled pre-AI by building automated agents for',
+            text: 'Scaling myself way beyond what I could’ve handled pre-AI by building automated agents for',
             open: true,
             children: [
               { text: 'Customer Support' },

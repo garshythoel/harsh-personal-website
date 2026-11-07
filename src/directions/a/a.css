@@ -460,6 +460,7 @@ html.js .untied > .kids > .outline > li > .kids {
 /* a quiet aside after a swirl: '(tap to learn what I learnt)' */
 .hint {
   margin-left: 0.2em; /* plus a real space, so it is read as a separate phrase */
+  white-space: nowrap; /* it moves to the next line whole, rather than splitting */
   font-size: 0.85em;
   font-weight: 400;
   color: var(--ink-soft);
