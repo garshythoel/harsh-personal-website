@@ -1,39 +1,34 @@
-// "Want to chat?": the arm at the right edge holds up a flag; tapped, it ducks out of sight and
-// comes back with a scroll that unrolls to a handwritten note, and the other way round to put
-// it away.
+// "Want to chat?": tapped, an arm reaches in from the right edge, just under the label, with a
+// scroll that unrolls to a handwritten note; tapped again, it rolls up and the arm takes it away.
 
+const label = document.querySelector<HTMLButtonElement>('[data-chat-toggle]');
 const lane = document.querySelector<HTMLElement>('[data-lane]');
-if (lane) init(lane);
+if (label && lane) init(label, lane);
 
-function init(lane: HTMLElement) {
+function init(label: HTMLButtonElement, lane: HTMLElement) {
   const reach = lane.querySelector<HTMLElement>('[data-reach]')!;
-  const flagHeld = lane.querySelector<HTMLElement>('[data-flag-held]')!;
-  const flag = lane.querySelector<HTMLButtonElement>('[data-chat-toggle]')!;
   const note = lane.querySelector<HTMLElement>('[data-note]')!;
   const paper = note.querySelector<HTMLElement>('[data-paper]')!;
   const rodEnd = note.querySelector<HTMLElement>('[data-rod-end]')!;
-  const lede = document.querySelector<HTMLElement>('.lede');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const EASE_OUT = 'cubic-bezier(0.22, 1, 0.36, 1)';
   const EASE_IN = 'cubic-bezier(0.55, 0, 0.8, 0.3)';
-  let out = false; // what the hand holds now
-  let want = false; // what it will hold once it is done swapping
+  let want = false; // open, or about to be
   let busy: Promise<void> = Promise.resolve();
 
-  // the arm comes in just under the lede, so the flag flies in the space between it and the
-  // first entry, clear of the thread
+  // the arm comes in a little under the label
   function place() {
-    const top = lede ? lede.getBoundingClientRect().bottom + scrollY + 40 : 240;
-    lane.style.top = `${Math.round(top)}px`;
+    lane.style.top = `${Math.round(label.getBoundingClientRect().bottom + scrollY + 12)}px`;
   }
 
   // the handwriting only loads when it is about to be needed
   const loadHand = () => document.fonts?.load('1em "Patrick Hand"').catch(() => {});
 
   const done = (a: Animation) => a.finished.then(() => {}, () => {});
+  const cancel = (el: Element) => el.getAnimations().forEach((a) => a.cancel());
 
-  // how far right the arm must go to be out of sight with whatever it holds
-  const away = () => Math.ceil((out ? note : flagHeld).getBoundingClientRect().width + reach.offsetWidth + 24);
+  // how far right the arm must go, with the scroll, to be out of sight
+  const away = () => Math.ceil(note.getBoundingClientRect().width + reach.offsetWidth + 24);
 
   const slide = (from: number, to: number, duration: number, easing: string) =>
     done(reach.animate([{ translate: `${from}px 0` }, { translate: `${to}px 0` }], { duration, easing, fill: 'both' }));
@@ -51,27 +46,17 @@ function init(lane: HTMLElement) {
     ]);
   }
 
-  function swap(toNote: boolean) {
+  function open() {
     busy = busy.then(async () => {
-      if (!reduce.matches) {
-        // rolled up first, if it is open
-        if (out) await roll(1, 0, 320, EASE_IN);
-        await slide(0, away(), 220, EASE_IN);
-      }
-      out = toNote;
-      flag.setAttribute('aria-expanded', String(toNote));
-      note.hidden = !toNote;
-      flagHeld.classList.toggle('stowed', toNote);
-      // the flag has gone, so the keyboard goes on to the note (and back to the flag after)
-      if (toNote) note.querySelector('a')?.focus({ preventScroll: true });
+      label.setAttribute('aria-expanded', 'true');
+      place();
+      reach.hidden = false;
+      note.querySelector('a')?.focus({ preventScroll: true });
       if (reduce.matches) return;
-      if (toNote) await roll(0, 0, 1, 'linear'); // comes in rolled up
+      await roll(0, 0, 1, 'linear'); // it comes in rolled up
       await slide(away(), 0, 460, EASE_OUT);
-      reach.getAnimations().forEach((a) => a.cancel());
-      if (!toNote) return;
       await roll(0, 1, 700, EASE_OUT);
-      paper.getAnimations().forEach((a) => a.cancel());
-      rodEnd.getAnimations().forEach((a) => a.cancel());
+      [reach, paper, rodEnd].forEach(cancel);
       // and it sways a little as it settles in the hand
       note.animate(
         [{ rotate: '0deg' }, { rotate: '1.4deg', offset: 0.35 }, { rotate: '-0.7deg', offset: 0.7 }, { rotate: '0deg' }],
@@ -80,32 +65,44 @@ function init(lane: HTMLElement) {
     });
   }
 
+  function close(refocus: boolean) {
+    busy = busy.then(async () => {
+      label.setAttribute('aria-expanded', 'false');
+      if (!reduce.matches) {
+        await roll(1, 0, 320, EASE_IN);
+        await slide(0, away(), 260, EASE_IN);
+      }
+      reach.hidden = true;
+      [reach, paper, rodEnd, note].forEach(cancel);
+      if (refocus) label.focus({ preventScroll: true });
+    });
+  }
+
   function show() {
     if (want) return;
     want = true;
     loadHand();
-    swap(true);
+    open();
   }
 
   function hide(refocus = false) {
     if (!want) return;
     want = false;
-    const back = refocus || note.contains(document.activeElement);
-    swap(false);
-    if (back) busy.then(() => flag.focus({ preventScroll: true }));
+    close(refocus || note.contains(document.activeElement));
   }
 
-  flag.addEventListener('click', show);
-  flag.addEventListener('pointerenter', loadHand, { once: true });
+  label.addEventListener('click', () => (want ? hide() : show()));
+  label.addEventListener('pointerenter', loadHand, { once: true });
   addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && want) hide(true);
   });
-  // a tap anywhere but the note puts it away
+  // a tap anywhere but the note (or the label, which toggles it) puts it away
   addEventListener('pointerdown', (e) => {
-    if (want && !note.contains(e.target as Node)) hide();
+    const t = e.target as Node;
+    if (want && !note.contains(t) && !label.contains(t)) hide();
   });
 
-  // "the contacts at the bottom": put the note away and go down to them
+  // "the links at the bottom": put the note away and go down to them
   note.querySelector<HTMLAnchorElement>('[data-note-contact]')?.addEventListener('click', (e) => {
     const target = document.getElementById('contact');
     if (!target) return;
@@ -115,10 +112,6 @@ function init(lane: HTMLElement) {
     target.querySelector('a')?.focus({ preventScroll: true });
   });
 
-  place();
-  addEventListener('resize', place);
-  // the fonts can move the lede once they load
-  document.fonts?.ready.then(place);
-  flag.hidden = false;
-  lane.classList.add('placed');
+  addEventListener('resize', () => want && place());
+  label.hidden = false;
 }

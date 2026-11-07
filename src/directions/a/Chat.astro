@@ -1,22 +1,16 @@
 ---
-// "Want to chat?": an arm reaches in from the right edge of the page holding up a small flag.
-// Tap the flag and the arm ducks out and comes back with a scroll, which unrolls to show a
-// handwritten note; tap again (or Escape, or anywhere else) and it rolls up and swaps back.
+// "Want to chat?": a small label at the top right, beside the light. Tap it and an arm reaches
+// in from the edge with a scroll, which unrolls to show a handwritten note; tap again (or
+// Escape, or anywhere else) and it rolls up and the arm takes it away.
 import '@fontsource/patrick-hand/latin-400.css';
 import { chat } from '../../content';
 
-const cut = chat.label.lastIndexOf(' ');
 ---
+<button class="chat-label" type="button" data-chat-toggle aria-expanded="false" aria-controls="chat-note" hidden>{chat.label}</button>
 <div class="reach-lane" data-lane>
-  <div class="reach" data-reach>
-    <!-- what the hand holds: the flag, or the scroll by its top rod -->
-    <div class="held flag-held" data-flag-held>
-      <span class="flag-stick" aria-hidden="true"></span>
-      <button class="flag" type="button" data-chat-toggle aria-expanded="false" aria-controls="chat-note" hidden>
-        <span class="flag-cloth"><span>{chat.label.slice(0, cut)}</span> <span>{chat.label.slice(cut + 1)}</span></span>
-      </button>
-    </div>
-    <div class="held scroll-held" id="chat-note" data-note hidden>
+  <div class="reach" data-reach hidden>
+    <!-- what the hand holds: the scroll, by its top rod -->
+    <div class="held scroll-held" id="chat-note" data-note>
       <span class="rod" aria-hidden="true"></span>
       <div class="paper" data-paper>
         {chat.note.map((line) => {

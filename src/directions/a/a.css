@@ -689,7 +689,7 @@ html.js .untied > .kids > .kids-shot {
    the bar and the page one surface, and the light is mounted on its edge. */
 @media (max-width: 40rem) {
   .sheet {
-    padding-top: 1.75rem;
+    padding-top: 2.25rem; /* room above the name for the light and "Want to chat?" */
   }
 }
 
@@ -805,10 +805,43 @@ html:not(.js) .lamp {
   transform: none;
 }
 
-/* "Want to chat?": an arm in from the right edge, holding up a flag, or waving a pit board.
+/* "Want to chat?": a small label at the top right, beside the light. Tapped, an arm comes in
+   from the right edge under it, holding a scroll.
    Measured on the arm's drawing (72×36): the fist's centre is 55.5px in from the edge, 18.5px
    down. The lane is the page's full width and clips sideways only, so the arm can duck out past
    the edge without the page scrolling sideways. */
+.chat-label {
+  position: absolute;
+  z-index: 4;
+  top: 0.5rem;
+  /* just left of the light and its rays */
+  right: calc(clamp(3rem, 7vw, 6rem) + 2.25rem);
+  padding: 0.25rem 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-size: clamp(0.875rem, 0.8rem + 0.25vw, 1rem);
+  line-height: 1.3;
+  color: var(--ink-soft);
+  text-decoration: underline 1px color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 0.24em;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color 0.15s var(--ease),
+    text-decoration-color 0.15s var(--ease);
+}
+
+.chat-label:hover,
+.chat-label[aria-expanded='true'] {
+  color: var(--ink);
+  text-decoration-color: currentColor;
+}
+
+html:not(.js) .chat-label {
+  display: none;
+}
+
 .reach-lane {
   position: absolute;
   z-index: 4;
@@ -817,11 +850,6 @@ html:not(.js) .lamp {
   height: 0;
   overflow-x: clip;
   overflow-y: visible;
-  visibility: hidden;
-}
-
-.reach-lane.placed {
-  visibility: visible;
 }
 
 html:not(.js) .reach-lane {
@@ -857,90 +885,6 @@ html:not(.js) .reach-lane {
 
 .held {
   position: absolute;
-}
-
-/* the flag: a stick up through the fist, the cloth flying from its top */
-.flag-held {
-  right: 55.5px;
-  top: -40px;
-}
-
-.flag-held.stowed {
-  visibility: hidden;
-}
-
-.flag-stick {
-  position: absolute;
-  right: -0.75px;
-  top: 0;
-  width: 1.5px;
-  height: 84px;
-  background: var(--thread);
-}
-
-.flag {
-  position: absolute;
-  right: 0.75px;
-  top: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  font: inherit;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.flag::before {
-  /* a bigger target than the cloth */
-  content: '';
-  position: absolute;
-  inset: -8px -10px -8px -8px;
-}
-
-.flag-cloth {
-  display: block;
-  padding: 0.3rem 0.625rem;
-  border: 1px solid var(--thread);
-  border-radius: 1px 0 0 1px;
-  background: var(--board);
-  font-size: 0.8125rem;
-  line-height: 1.3;
-  white-space: nowrap;
-  color: var(--ink);
-  transform-origin: 100% 50%;
-  transition: background-color 0.15s var(--ease);
-}
-
-.flag:hover .flag-cloth {
-  background: var(--paper);
-}
-
-.flag:focus-visible {
-  outline: none;
-}
-
-.flag:focus-visible .flag-cloth {
-  outline: 1px solid var(--ink);
-  outline-offset: 3px;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .flag-cloth {
-    animation: flutter 3.6s ease-in-out infinite;
-  }
-}
-
-@keyframes flutter {
-  0%,
-  100% {
-    transform: skewY(0deg) scaleX(1);
-  }
-  30% {
-    transform: skewY(-2deg) scaleX(0.985);
-  }
-  60% {
-    transform: skewY(1.5deg) scaleX(1);
-  }
 }
 
 /* the scroll, held by the right end of its top rod; it unrolls downwards to a handwritten note */
@@ -997,16 +941,6 @@ html:not(.js) .reach-lane {
   text-underline-offset: 0.16em;
 }
 
-/* on a phone the flag's words go on two lines, so it stays clear of the thread */
-@media (max-width: 40rem) {
-  .flag-cloth {
-    text-align: right;
-  }
-
-  .flag-cloth > span {
-    display: block;
-  }
-}
 
 .sr-only {
   position: absolute;
