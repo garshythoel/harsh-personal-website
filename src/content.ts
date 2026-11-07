@@ -55,7 +55,7 @@ export const outline: Item[] = [
           alt: 'a distraction-free e-ink device.',
         },
       },
-      { text: 'Delivering every order as the only full-time employee at the company.' },
+      { text: 'Running ops, product and engineering as a one\u2011person, AI\u2011native company.' }, // hyphens that never break
       { text: 'Running a parallel consumer app doing >\u00a0$100k/yr in revenue (and growing)' },
       {
         text: 'Learning a TON',
