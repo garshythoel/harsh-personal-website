@@ -6,6 +6,8 @@ import solarpunk from './assets/solarpunk.webp';
 
 export const name = 'Harshyt Goel';
 
+export const tagline = 'Engineer · Designer · Operator. Software, hardware, and everything between.';
+
 export const lede = 'I pull threads to see where they go.';
 
 export const contact = [

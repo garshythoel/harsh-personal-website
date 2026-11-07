@@ -74,7 +74,7 @@ a:hover {
   /* the header: the name set large, its capitals touching the top of the window */
   width: max-content;
   /* trimmed to the capitals, the h, t and l rise 0.03em higher; give that back so they just touch */
-  margin: 0.03em 0 clamp(2rem, 5vw, 4rem);
+  margin: 0.03em 0 clamp(0.75rem, 1.5vw, 1.25rem);
   font-size: clamp(2.75rem, 0.4rem + 9.5vw, 9rem);
   line-height: 1;
   font-weight: 460;
@@ -90,6 +90,19 @@ a:hover {
   .name {
     margin-top: -0.155em;
   }
+}
+
+.tagline {
+  /* a quiet caption to the name: what he does, before what he believes */
+  margin: 0 0 clamp(2rem, 5vw, 4rem);
+  font-size: clamp(1.0625rem, 0.95rem + 0.55vw, 1.375rem);
+  line-height: 1.4;
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.tagline > span {
+  display: block;
 }
 
 .lede {

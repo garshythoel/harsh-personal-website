@@ -2,12 +2,14 @@
 import '@fontsource-variable/commissioner/flar.css';
 import './a.css';
 import Outline from './Outline.astro';
-import { name, lede, contact, outline, beliefs } from '../../content';
+import { name, tagline, lede, contact, outline, beliefs } from '../../content';
 
 const ledeText = lede.replace(/\.$/, '');
 ---
 <main class="sheet" data-sheet>
   <h1 class="name">{name}</h1>
+  <!-- the roles, then what they cover: each on its own line -->
+  <p class="tagline">{tagline.split(/(?<=\.) /).map((part) => <span>{part} </span>)}</p>
   <p class="lede">{ledeText}<span class="knot" data-knot>.<span class="tie" data-tie></span></span></p>
 
   <button class="pull" type="button" data-pull aria-label="Pull the thread to open everything" hidden>
