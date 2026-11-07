@@ -1,6 +1,8 @@
 ---
-// A list where each item with more under it is a small swirl (a <details>), and each item
-// without is a plain bullet. Opening one brings its swirl to rest and shows what it holds.
+// The outline. One rule for every marker:
+//   a swirl means "this opens" and always comes after the text; tap the line to open it
+//   a dot is a point in a list, and only appears inside an entry
+// Top-level entries carry no marker at all: their date and title sit on the page's left edge.
 import { Picture } from 'astro:assets';
 import type { Item } from '../../content';
 
@@ -29,6 +31,8 @@ const split = (item: Item) => {
   if (at < 0 || isPlaceholder(item.href)) return null;
   return [item.text.slice(0, at), item.linkText!, item.text.slice(at + item.linkText!.length)];
 };
+// the swirl coils from its centre outward and runs on into a stem that is never drawn
+const swirl = 'M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27 6.83L7.10 6.94L6.89 7.02L6.66 7.05L6.41 7.02L6.16 6.94L5.92 6.79L5.70 6.58L5.54 6.31L5.43 6.00L5.38 5.66L5.42 5.30L5.54 4.94L5.74 4.60L6.02 4.30L6.37 4.06L6.78 3.89L7.23 3.81L7.70 3.83L8.18 3.96L8.63 4.19L9.03 4.52L9.37 4.95L9.61 5.44L9.75 6.00L9.77 6.59L9.66 7.18L9.41 7.75L9.05 8.28L8.57 8.72L8.00 9.06L7.34 9.28L6.65 9.36L5.93 9.29L5.23 9.06L4.58 8.68L4.01 8.17L3.56 7.53L3.24 6.80L3.08 6.00L3.08 5.17L3.27 4.34L3.63 3.55L4.16 2.85L4.84 2.26L5.64 1.82L6.53 1.55L7.48 1.47L8.43 1.60L9.35 1.92L10.20 2.44L10.94 3.14L11.52 3.99L11.91 4.96L12.10 6.00C12.10 9.80 7 9.40 7 13.40L7 22';
 ---
 <ul class:list={['outline', `depth-${depth}`]}>
   {items.map((item, i) => {
@@ -41,8 +45,18 @@ const split = (item: Item) => {
       <span class="text">{item.text}</span>
     );
     const subtitle = item.subtitle && <span class="subtitle">{item.subtitle}</span>;
+    const opens = (
+      <svg class="mark trail" viewBox="1.5 0.5 11 11" aria-hidden="true" focusable="false">
+        <path class="swirl" pathLength="1" d={swirl} />
+      </svg>
+    );
+    const dot = depth > 0 && (
+      <svg class="mark" viewBox="0 0 14 22" aria-hidden="true" focusable="false">
+        <circle class="dot" cx="7" cy="6" r="2.1" />
+      </svg>
+    );
     return (
-    // a label shared with the next line (it has no years of its own) spans both
+    // lines that ran side by side (the next one has no years of its own) share one date
     <li style={`--i:${i}`} class:list={{ 'shares-years': item.years && items[i + 1] && !items[i + 1].years }}>
       {item.years && (
         <span class="when">
@@ -54,10 +68,6 @@ const split = (item: Item) => {
       {item.children && item.open ? (
         <>
           <div class="line held-open">
-            <svg class="mark" viewBox="0 0 14 22" aria-hidden="true" focusable="false">
-              <!-- a swirl; the path runs on into a stem that is never drawn -->
-              <path class="swirl" pathLength="1" d="M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27 6.83L7.10 6.94L6.89 7.02L6.66 7.05L6.41 7.02L6.16 6.94L5.92 6.79L5.70 6.58L5.54 6.31L5.43 6.00L5.38 5.66L5.42 5.30L5.54 4.94L5.74 4.60L6.02 4.30L6.37 4.06L6.78 3.89L7.23 3.81L7.70 3.83L8.18 3.96L8.63 4.19L9.03 4.52L9.37 4.95L9.61 5.44L9.75 6.00L9.77 6.59L9.66 7.18L9.41 7.75L9.05 8.28L8.57 8.72L8.00 9.06L7.34 9.28L6.65 9.36L5.93 9.29L5.23 9.06L4.58 8.68L4.01 8.17L3.56 7.53L3.24 6.80L3.08 6.00L3.08 5.17L3.27 4.34L3.63 3.55L4.16 2.85L4.84 2.26L5.64 1.82L6.53 1.55L7.48 1.47L8.43 1.60L9.35 1.92L10.20 2.44L10.94 3.14L11.52 3.99L11.91 4.96L12.10 6.00C12.10 9.80 7 9.40 7 13.40L7 22" />
-            </svg>
             {text}
             {subtitle}
           </div>
@@ -68,11 +78,7 @@ const split = (item: Item) => {
       ) : item.children ? (
         <details class="tied" data-tied>
           <summary class="line">
-            <svg class="mark" viewBox="0 0 14 22" aria-hidden="true" focusable="false">
-              <!-- a swirl; the path runs on into a stem that is never drawn -->
-              <path class="swirl" pathLength="1" d="M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27 6.83L7.10 6.94L6.89 7.02L6.66 7.05L6.41 7.02L6.16 6.94L5.92 6.79L5.70 6.58L5.54 6.31L5.43 6.00L5.38 5.66L5.42 5.30L5.54 4.94L5.74 4.60L6.02 4.30L6.37 4.06L6.78 3.89L7.23 3.81L7.70 3.83L8.18 3.96L8.63 4.19L9.03 4.52L9.37 4.95L9.61 5.44L9.75 6.00L9.77 6.59L9.66 7.18L9.41 7.75L9.05 8.28L8.57 8.72L8.00 9.06L7.34 9.28L6.65 9.36L5.93 9.29L5.23 9.06L4.58 8.68L4.01 8.17L3.56 7.53L3.24 6.80L3.08 6.00L3.08 5.17L3.27 4.34L3.63 3.55L4.16 2.85L4.84 2.26L5.64 1.82L6.53 1.55L7.48 1.47L8.43 1.60L9.35 1.92L10.20 2.44L10.94 3.14L11.52 3.99L11.91 4.96L12.10 6.00C12.10 9.80 7 9.40 7 13.40L7 22" />
-            </svg>
-            {text}
+            {text}{opens}
             {subtitle}
           </summary>
           <div class="kids" data-kids>
@@ -81,9 +87,7 @@ const split = (item: Item) => {
         </details>
       ) : (
         <div class="line leaf">
-          <svg class="mark" viewBox="0 0 14 22" aria-hidden="true" focusable="false">
-            <circle class="dot" cx="7" cy="6" r="2.1" />
-          </svg>
+          {dot}
           {text}
           {subtitle}
           {item.image && (
@@ -92,7 +96,7 @@ const split = (item: Item) => {
               src={item.image.src}
               alt={item.image.alt}
               widths={[320, 480, 720]}
-              sizes="(min-width: 40rem) 15rem, 50vw"
+              sizes="(min-width: 40rem) 16rem, 60vw"
               formats={['avif']}
               fallbackFormat="webp"
               loading="lazy"

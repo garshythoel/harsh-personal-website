@@ -8,8 +8,6 @@
   --loops: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 7.4C2.6 7.6 5.6 5 5 2.6 4.6.9 2.3 1.7 2.8 4.1 3.3 6.7 6.7 7.9 10 7.2' fill='none' stroke='%232a2824' stroke-width='.75' stroke-linecap='round'/%3E%3C/svg%3E");
   --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16 0 0 0 0 .15 0 0 0 0 .13 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --gutter: clamp(1.5rem, 6vw, 6rem);
-  --roof-h: clamp(10px, 0.5rem + 0.5vw, 16px);
-  --roof: #121110;
   color-scheme: light;
 }
 
@@ -23,17 +21,14 @@
   --halo: #1a1917;
   --loops: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 7.4C2.6 7.6 5.6 5 5 2.6 4.6.9 2.3 1.7 2.8 4.1 3.3 6.7 6.7 7.9 10 7.2' fill='none' stroke='%23e8e3d9' stroke-width='.75' stroke-linecap='round'/%3E%3C/svg%3E");
   color-scheme: dark;
-  --roof: #070706;
 }
 
 html {
   min-height: 100%;
-  overscroll-behavior-y: none; /* no bounce past the roof */
   background: var(--paper) var(--grain);
 }
 
 body {
-  position: relative;
   margin: 0;
   color: var(--ink);
   font-family: 'Commissioner Variable', ui-sans-serif, system-ui, sans-serif;
@@ -72,20 +67,7 @@ a:hover {
   position: relative;
   max-width: 40rem; /* ~60 characters a line at the main bullets' size */
   margin: 0;
-  padding: var(--roof-h) var(--gutter) 5rem; /* the name sits right under the roof */
-}
-
-/* the roof: a solid black band across the top of the page, edge to edge, in both lights; nothing
-   draws over it (the lamp's glow sits beneath), and the lamp hangs from its underside */
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-  height: var(--roof-h);
-  background: var(--roof);
+  padding: 0 var(--gutter) 5rem;
 }
 
 .name {
@@ -119,6 +101,9 @@ body::before {
   font-variation-settings: 'FLAR' 100;
   letter-spacing: -0.012em;
   text-wrap: balance;
+  /* one line where the window allows, rather than two short lines under a much wider name */
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--gutter));
 }
 
 .knot {
@@ -235,32 +220,33 @@ html:not(.js) .pull {
 /* levels: the top lines are the voice; what hangs under them is a touch smaller but just as
    dark (a lighter ink made it hard to read), and a swirl inside them is a grey label */
 .depth-0 {
+  padding-left: 0; /* top-level entries carry no marker: date and title sit on the page's left edge */
   font-size: clamp(1.125rem, 0.95rem + 0.75vw, 1.375rem); /* 18px on a phone, 22px wide */
 }
 
-/* the years, as a small heading over each top-level line: 'Present – 2024'. Lines that ran side
-   by side (Meta and the channel) share one heading, and sit close under it as a pair. */
+/* the date: a small-caps kicker over the entry's title, on the same left edge. Lines that ran side
+   by side (Meta and the channel) share one date and sit close under it. */
 .when {
   display: flex;
   align-items: baseline;
-  gap: 0.35em;
-  margin-bottom: 0.4rem;
-  font-size: clamp(0.9375rem, 0.88rem + 0.25vw, 1.0625rem); /* 15px to 17px, a step under the titles */
+  gap: 0.4em;
+  margin-bottom: 0.3rem;
+  font-size: 0.8125rem;
   line-height: 1.4;
-  font-weight: 620;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.03em;
-  color: var(--ink);
+  font-weight: 560;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--ink) 62%, var(--paper));
   white-space: nowrap;
 }
 
 .when > .to {
   font-weight: 400;
-  color: var(--ink-soft);
 }
 
 .depth-0 > li.shares-years {
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
 }
 
 /* on a phone the same edges, a step tighter */
@@ -315,7 +301,7 @@ html:not(.js) .pull {
 .line {
   position: relative;
   display: block;
-  text-wrap: pretty;
+  text-wrap: balance; /* short lines: wrap evenly, never leave a fragment like '(and growing)' alone */
 }
 
 summary.line {
@@ -366,6 +352,18 @@ summary.line:focus-visible .text {
 
 summary.line:hover .mark {
   translate: 0 1px;
+}
+
+/* the swirl after a line's text: about a cap height tall, sitting on the text */
+.mark.trail {
+  position: static;
+  display: inline-block;
+  width: 0.72em;
+  height: 0.72em;
+  margin: 0 0 0 0.4em;
+  padding: 0;
+  vertical-align: -0.04em;
+  overflow: visible;
 }
 
 .mark path {
@@ -440,6 +438,8 @@ html.js .untied > .kids > .outline > li > details > .line {
   margin: 0.5rem 0 0;
   border-radius: 6px;
   background: var(--line);
+  /* a faint edge, so the photo holds its shape on the paper in either light */
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 9%, transparent);
 }
 
 /* a smaller grey line under a line's text */
@@ -464,7 +464,7 @@ html.js .untied > .kids > .outline > li > details > .line {
 /* the light: a small dome fixed to the top edge of the page, to the right of the text */
 .lamp {
   position: absolute;
-  top: var(--roof-h);
+  top: 0;
   left: calc(100% - 2.75rem);
   z-index: 3;
   width: 0;

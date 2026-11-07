@@ -10,7 +10,9 @@ function init(lamp: HTMLElement) {
   const fixture = lamp.querySelector<SVGSVGElement>('[data-fixture]')!;
   const glow = lamp.querySelector<SVGElement>('[data-glow]')!;
   const hint = lamp.querySelector<HTMLElement>('[data-switch-hint]')!;
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const PAPER = { light: '#f3f0e8', dark: '#1a1917' };
 
   const isDark = () => root.dataset.theme === 'dark';
 
@@ -27,6 +29,7 @@ function init(lamp: HTMLElement) {
     } catch {}
     const apply = () => {
       root.dataset.theme = dark ? 'dark' : 'light';
+      if (meta) meta.content = dark ? PAPER.dark : PAPER.light;
       label();
     };
     if (!reduce.matches) {

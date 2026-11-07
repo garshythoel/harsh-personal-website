@@ -4,9 +4,9 @@ import LooseThread from '../directions/a/LooseThread.astro';
 import font from '@fontsource-variable/commissioner/files/commissioner-latin-flar-normal.woff2?url';
 ---
 <Base title="Harshyt Goel" description="I pull threads to see where they go.">
-  <meta name="theme-color" content="#121110" slot="head" />
+  <meta name="theme-color" content="#f3f0e8" slot="head" />
   <!-- light unless the visitor has pulled the lamp's string before; the system setting is ignored -->
-  <script is:inline slot="head">(function(d){d.classList.add('js');try{if(localStorage.getItem('theme')==='dark')d.dataset.theme='dark'}catch(e){}})(document.documentElement)</script>
+  <script is:inline slot="head">(function(d){d.classList.add('js');try{if(localStorage.getItem('theme')==='dark'){d.dataset.theme='dark';document.querySelector('meta[name=theme-color]').content='#1a1917'}}catch(e){}})(document.documentElement)</script>
   <link rel="preload" href={font} as="font" type="font/woff2" crossorigin slot="head" />
   <LooseThread />
 </Base>
