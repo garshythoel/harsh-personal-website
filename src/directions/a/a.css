@@ -218,7 +218,8 @@ html:not(.js) .pull {
 }
 
 /* levels: the top lines are the voice; what hangs under them is a touch smaller but just as
-   dark (a lighter ink made it hard to read), and a swirl inside them is a grey label */
+   dark (a lighter ink made it hard to read). A line inside that opens is a bullet like the rest,
+   with its swirl after the text. */
 .depth-0 {
   padding-left: 0; /* top-level entries carry no marker: date and title sit on the page's left edge */
   font-size: clamp(1.125rem, 0.95rem + 0.75vw, 1.375rem); /* 18px on a phone, 22px wide */
@@ -261,19 +262,6 @@ html:not(.js) .pull {
   font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.1875rem); /* 17px to 19px */
   font-weight: 400;
   letter-spacing: normal;
-  color: var(--ink);
-}
-
-.outline:not(.depth-0) > li:has(> .tied) {
-  letter-spacing: 0.01em;
-}
-
-.outline:not(.depth-0) > li > .tied > summary .text {
-  color: var(--ink-soft);
-  transition: color 0.2s ease;
-}
-
-.outline:not(.depth-0) > li > .tied > summary:hover .text {
   color: var(--ink);
 }
 

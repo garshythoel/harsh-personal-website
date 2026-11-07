@@ -8,7 +8,8 @@ const knots = [...document.querySelectorAll<HTMLDetailsElement>('[data-tied]')];
 const TUG = 9; // px of downward drag that pulls a knot loose
 
 const kidsOf = (d: HTMLDetailsElement) => d.querySelector<HTMLElement>(':scope > [data-kids]')!;
-const markOf = (d: HTMLDetailsElement) => d.querySelector<SVGSVGElement>(':scope > summary .mark')!;
+// the swirl after the line's text (a nested line also has a dot in front, which is not it)
+const markOf = (d: HTMLDetailsElement) => d.querySelector<SVGSVGElement>(':scope > summary .mark.trail')!;
 const isUntied = (d: HTMLDetailsElement) => d.classList.contains('untied');
 
 const swirlOf = (d: HTMLDetailsElement) => markOf(d).querySelector<SVGPathElement>('.swirl')!;

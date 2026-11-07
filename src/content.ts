@@ -32,8 +32,6 @@ export type Item = {
   children?: Item[];
 };
 
-const todo = (what: string): Item[] => [{ text: `[${what}]` }];
-
 export const outline: Item[] = [
   {
     text: 'Founder at Inkboard Inc.',
@@ -44,7 +42,7 @@ export const outline: Item[] = [
     linkText: 'Inkboard Inc.',
     children: [
       {
-        text: 'Raised nearly 300K for Inku on Kickstarter',
+        text: 'Sold ~$300K pre-orders for Inku on Kickstarter',
         href: 'https://www.kickstarter.com/projects/desertelf/inku-your-friendly-smart-and-distraction-free-calendar',
         linkText: 'Kickstarter',
         image: {
@@ -52,10 +50,10 @@ export const outline: Item[] = [
           alt: 'a distraction-free e-ink device.',
         },
       },
-      { text: 'Delivered the orders as a 1\u00a0person company.' },
-      { text: 'Started a digital platform currently doing over 100k/yr in revenue. (and growing)' },
+      { text: 'Delivered said orders as the only Full Time employee at the company.' },
+      { text: 'Started a parallel consumer app version doing >\u00a0$100k/yr in revenue (and growing)' },
       {
-        text: 'Tap to see the things I’ve learnt:',
+        text: 'Learnt a TON',
         children: [
           { text: 'Bootstrapping a hardware startup is a great idea to learn a lot of stuff' },
           { text: 'CAD/3D Printing/Pantone colors' },
@@ -68,13 +66,16 @@ export const outline: Item[] = [
     ],
   },
   {
-    text: 'Founding engineer at Loom, Inc. (Acquired by Atlassian)',
+    text: 'Founding Engineer @ Loom, Inc.',
+    open: true,
     years: '2023 – 2017',
     href: 'https://www.loom.com',
     linkText: 'Loom, Inc.',
     children: [
-      { text: 'What we did', children: todo('what you did at Loom') },
-      { text: 'Tap to see the things I’ve learnt:', children: todo('what Loom taught you') },
+      { text: 'Built core product and technology (billing systems, integration platforms, experimentation etc.) (pre-AI).' },
+      { text: 'Started and grew the Loom growth team.' },
+      { text: 'Scaled from thousands → 30m+ users worldwide.' },
+      { text: 'Acquired by Atlassian for $975M.' },
     ],
   },
   { text: 'Worked at Meta for a bit.', years: '2017 – 2015' },
