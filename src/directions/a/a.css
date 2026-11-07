@@ -502,12 +502,36 @@ html.js .untied > .kids > .kids-shot {
 
 /* the light: a small dome fixed to the top edge of the page, to the right of the text */
 .lamp {
+  --drop: 0px; /* how far the light hangs below the top edge, on a cord */
   position: absolute;
   top: 0;
-  left: calc(100% - 2.75rem);
+  left: calc(100% - clamp(3rem, 7vw, 6rem)); /* in from the edge, so its glow falls on the page */
   z-index: 3;
   width: 0;
   height: 0;
+}
+
+/* the cord, when the light hangs below the edge */
+.lamp::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -0.6px;
+  width: 1.2px;
+  height: var(--drop);
+  background: var(--thread);
+}
+
+/* on a phone the top of the page meets the browser's own bar (on iOS the status bar), so it is
+   not a clean edge: the page starts a little below it, and the light hangs from it on a cord */
+@media (max-width: 40rem) {
+  .sheet {
+    padding-top: 1.75rem;
+  }
+
+  .lamp {
+    --drop: 1.4rem;
+  }
 }
 
 html:not(.js) .lamp {
@@ -517,7 +541,7 @@ html:not(.js) .lamp {
 .switch {
   position: absolute;
   left: -26px;
-  top: 0;
+  top: var(--drop);
   width: 52px;
   height: 44px;
   padding: 0;
@@ -574,6 +598,65 @@ html:not(.js) .lamp {
 [data-theme='dark'] .seam {
   stroke: var(--ink-soft);
   opacity: 0.6;
+}
+
+.glow {
+  /* multiplied into the paper, so it warms the page without washing out text beneath it */
+  mix-blend-mode: multiply;
+}
+
+/* drawn rays, like a lit bulb in a sketch. While the light is on they glow: a soft amber copy
+   behind them brightens and fades, and the rays reach out a little as it does. */
+.rays {
+  transform-origin: 0 7.5px; /* the dome's centre, in the fixture's own units */
+  transition: opacity 0.3s ease;
+}
+
+.rays-line {
+  fill: none;
+  stroke: var(--thread);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+
+.rays-glow {
+  fill: none;
+  stroke: #ffa63a;
+  stroke-width: 3.2;
+  stroke-linecap: round;
+  opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-theme='dark']) .rays {
+    animation: rays-reach 2.6s ease-in-out infinite alternate;
+  }
+
+  :root:not([data-theme='dark']) .rays-glow {
+    animation: rays-glow 2.6s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes rays-reach {
+  from {
+    scale: 0.94;
+  }
+  to {
+    scale: 1.06;
+  }
+}
+
+@keyframes rays-glow {
+  from {
+    opacity: 0.15;
+  }
+  to {
+    opacity: 0.95;
+  }
+}
+
+[data-theme='dark'] .rays {
+  opacity: 0;
 }
 
 [data-theme='dark'] .glow {

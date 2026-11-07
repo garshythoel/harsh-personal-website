@@ -29,12 +29,24 @@ const ledeText = lede.replace(/\.$/, '');
   <button class="switch" type="button" data-switch aria-label="Turn the light off" hidden>
     <svg class="fixture" data-fixture viewBox="-20 0 40 18" width="40" height="18" aria-hidden="true" focusable="false">
       <defs>
-        <radialGradient id="lamp-glow" cx="0.5" cy="0" r="0.75">
-          <stop offset="0" stop-color="#f7c76a" stop-opacity="0.55" />
-          <stop offset="1" stop-color="#f7c76a" stop-opacity="0" />
+        <radialGradient id="lamp-glow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0" stop-color="#ffb347" stop-opacity="1" />
+          <stop offset="0.22" stop-color="#ffbe5c" stop-opacity="0.62" />
+          <stop offset="0.55" stop-color="#f9c978" stop-opacity="0.2" />
+          <stop offset="1" stop-color="#f9c978" stop-opacity="0" />
         </radialGradient>
+        <filter id="ray-glow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="1.8" />
+        </filter>
       </defs>
-      <ellipse class="glow" data-glow cx="0" cy="8" rx="64" ry="54" fill="url(#lamp-glow)" />
+      <!-- while the light is on: a warm pool of light, and short drawn rays around the dome -->
+      <!-- the glow is centred on the dome; the gradient runs from its middle out to the edge -->
+      <ellipse class="glow" data-glow cx="0" cy="8" rx="180" ry="160" fill="url(#lamp-glow)" />
+      <!-- the rays, and a soft amber copy of them behind that brightens and fades -->
+      <g class="rays">
+        <path class="rays-glow" d="M-15.7 10.8L-23.0 12.4M-12.6 17.4L-18.5 22.0M-7.0 21.9L-10.3 28.6M0.0 23.5L0.0 31.0M7.0 21.9L10.3 28.6M12.6 17.4L18.5 22.0M15.7 10.8L23.0 12.4" filter="url(#ray-glow)" />
+        <path class="rays-line" d="M-15.7 10.8L-23.0 12.4M-12.6 17.4L-18.5 22.0M-7.0 21.9L-10.3 28.6M0.0 23.5L0.0 31.0M7.0 21.9L10.3 28.6M12.6 17.4L18.5 22.0M15.7 10.8L23.0 12.4" />
+      </g>
       <path class="plate" d="M-10 0v2.6h20V0" />
       <path class="dome" d="M-15 2.6H15A15 12 0 0 1-15 2.6Z" />
       <path class="seam" d="M-9 6.2q9 4.6 18 0" />
