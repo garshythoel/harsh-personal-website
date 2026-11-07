@@ -10,6 +10,20 @@ export const tagline = 'Engineer · Designer · Operator. Software, hardware, an
 
 export const lede = 'I pull threads to see where they go.';
 
+// "Want to chat?": a flag held up at the right edge; tapped, it becomes a handwritten note on a
+// scroll, unrolled
+export const chat = {
+  label: 'Want to chat?',
+  /** the note on the scroll, a paragraph each */
+  note: [
+    'I’m always interested in talking to people who’re building things!',
+    'Have advised companies and occasionally worked with them as well.',
+    'Use the links at the bottom if you’d like to chat.',
+  ],
+  /** the words in the note that take you down to the contacts */
+  linkText: 'the links at the bottom',
+};
+
 export const contact = [
   { label: 'email', href: 'mailto:harshyt.goel@gmail.com' },
   { label: 'x', href: 'https://x.com/garshythoel' },
@@ -28,6 +42,8 @@ export type Item = {
   years?: string;
   /** a smaller line under the text */
   subtitle?: string;
+  /** a handwritten note shown beside the line on hover, or under it on a tap */
+  note?: string;
   /** a quiet aside after a line that opens, after its swirl */
   hint?: string;
   /** always open, with no swirl to tug: what it holds is shown from the start */
@@ -40,7 +56,7 @@ export type Item = {
 export const outline: Item[] = [
   {
     text: 'Founder at Inkboard Inc.',
-    subtitle: 'Building hardware and software products that are smart, useful, and joyful.',
+    subtitle: 'Building hardware and software products that are smart, useful, and joyful',
     open: true,
     years: 'Present – 2024',
     href: 'https://inkboard.ink',
@@ -55,8 +71,8 @@ export const outline: Item[] = [
           alt: 'a distraction-free e-ink device.',
         },
       },
-      { text: 'Running ops, product and engineering as a one\u2011person, AI\u2011native company.' }, // hyphens that never break
-      { text: 'Running a parallel consumer app doing >\u00a0$100k/yr in revenue (and growing)' },
+      { text: 'Running ops, product and engineering as a one\u2011person, AI\u2011native company' }, // hyphens that never break
+      { text: 'Running a parallel consumer app doing >\u00a0$100K/yr in revenue (and growing)' },
       {
         text: 'Learning a TON',
         hint: '(tap to see what I’m learning)',
@@ -89,18 +105,18 @@ export const outline: Item[] = [
     href: 'https://www.loom.com',
     linkText: 'Loom, Inc.',
     children: [
-      { text: 'Built core product and technology (billing systems, integration platforms, experimentation etc.) (pre-AI).' },
-      { text: 'Started and grew the Loom growth team.' },
-      { text: 'Scaled from thousands → 30m+ users worldwide.' },
-      { text: 'Acquired by Atlassian for $975M.' },
+      { text: 'Built core product and technology (billing systems, integration platforms, experimentation etc.) (pre-AI)' },
+      { text: 'Started and grew the Loom growth team' },
+      { text: 'Scaled from thousands → 30M+ users worldwide' },
+      { text: 'Acquired by Atlassian for $975M' },
     ],
   },
-  { text: 'Worked at Meta for a bit.', years: '2017 – 2015' },
+  { text: 'Worked at Meta for a bit', years: '2017 – 2015' },
   // ran side by side with Meta: Meta's label covers both
   {
-    text: 'Started a successful youtube channel.',
+    text: 'Started a successful YouTube channel',
     href: 'https://www.youtube.com/riffshop',
-    linkText: 'youtube channel',
+    linkText: 'YouTube channel',
     image: {
       src: playButton,
       alt: 'The YouTube silver play button presented to Riffshop for passing 100,000 subscribers.',
@@ -113,7 +129,10 @@ export const beliefs: Item = {
   text: 'Things I feel strongly about',
   children: [
     { text: 'Family' },
-    { text: 'The Dream Machine, by M. Mitchell Waldrop' },
+    {
+      text: 'The Dream Machine, by M. Mitchell Waldrop',
+      note: 'Before I read The Dream Machine, I had a hard time reconciling the Engineer and Artist personas in me. Highly recommend.',
+    },
     {
       text: 'The future should be solarpunk',
       image: {
@@ -121,10 +140,10 @@ export const beliefs: Item = {
         alt: 'Google’s AI Overview: Solarpunk is an optimistic speculative movement, genre of art and literature, and lifestyle that envisions a sustainable, post-scarcity, and community-driven future.',
       },
     },
-    { text: 'Just keep building/making/creating things.' },
-    { text: 'Music and singing' },
-    { text: 'Twitter / X' },
-    { text: 'Space and Nuclear Energy' },
+    { text: 'Just keep building/making/creating things' },
+    { text: 'Music and singing', note: 'Probably the most hours I’ve spent on anything apart from work' },
+    { text: 'Twitter / X', note: 'Truly, everything happens here first' },
+    { text: 'Space and Nuclear Energy', note: 'Abundance!' },
     { text: 'The constant attempts and futility of trying to balance everything on this list' },
     { text: 'Others…' },
   ],

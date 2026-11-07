@@ -1,0 +1,44 @@
+---
+// "Want to chat?": an arm reaches in from the right edge of the page holding up a small flag.
+// Tap the flag and the arm ducks out and comes back with a scroll, which unrolls to show a
+// handwritten note; tap again (or Escape, or anywhere else) and it rolls up and swaps back.
+import '@fontsource/patrick-hand/latin-400.css';
+import { chat } from '../../content';
+
+const cut = chat.label.lastIndexOf(' ');
+---
+<div class="reach-lane" data-lane>
+  <div class="reach" data-reach>
+    <!-- what the hand holds: the flag, or the scroll by its top rod -->
+    <div class="held flag-held" data-flag-held>
+      <span class="flag-stick" aria-hidden="true"></span>
+      <button class="flag" type="button" data-chat-toggle aria-expanded="false" aria-controls="chat-note" hidden>
+        <span class="flag-cloth"><span>{chat.label.slice(0, cut)}</span> <span>{chat.label.slice(cut + 1)}</span></span>
+      </button>
+    </div>
+    <div class="held scroll-held" id="chat-note" data-note hidden>
+      <span class="rod" aria-hidden="true"></span>
+      <div class="paper" data-paper>
+        {chat.note.map((line) => {
+          const at = line.indexOf(chat.linkText);
+          return (
+            <p>
+              {at < 0 ? line : (
+                <>{line.slice(0, at)}<a href="#contact" data-note-contact>{chat.linkText}</a>{line.slice(at + chat.linkText.length)}</>
+              )}
+            </p>
+          );
+        })}
+      </div>
+      <span class="rod" data-rod-end aria-hidden="true"></span>
+    </div>
+
+    <!-- the arm, in from the edge: a sleeve, its cuff, and a fist round whatever it holds -->
+    <svg class="arm" viewBox="0 0 72 36" aria-hidden="true" focusable="false">
+      <path d="M72 11H28M72 26H28" />
+      <rect x="24" y="9" width="5" height="19" rx="1" />
+      <rect x="9" y="11" width="15" height="15" rx="5" />
+      <path d="M10 16H16M10 21H16" />
+    </svg>
+  </div>
+</div>

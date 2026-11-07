@@ -4,15 +4,9 @@
 <div class="lamp" data-lamp>
   <button class="switch" type="button" data-switch aria-label="Turn the light off" hidden>
     <svg class="fixture" data-fixture viewBox="-20 0 40 18" width="40" height="18" aria-hidden="true" focusable="false">
-      <defs>
-        <filter id="ray-glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="1.8" />
-        </filter>
-      </defs>
       <!-- while the light is on: short drawn rays, evenly spaced around the dome's curve and
-           pointing straight out from it, with a soft amber copy behind that brightens and fades -->
+           pointing straight out from it -->
       <g class="rays">
-        <path class="rays-glow" d="M-17.9 5.4L-24.2 6.8M-14.5 11.8L-19.3 16.2M-8.0 16.3L-10.5 22.3M0.0 17.8L0.0 24.3M8.0 16.3L10.5 22.3M14.5 11.8L19.3 16.2M17.9 5.4L24.2 6.8" filter="url(#ray-glow)" />
         <path class="rays-line" d="M-17.9 5.4L-24.2 6.8M-14.5 11.8L-19.3 16.2M-8.0 16.3L-10.5 22.3M0.0 17.8L0.0 24.3M8.0 16.3L10.5 22.3M14.5 11.8L19.3 16.2M17.9 5.4L24.2 6.8" />
       </g>
       <path class="plate" d="M-10 0v2.6h20V0" />

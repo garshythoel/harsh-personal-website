@@ -45,6 +45,19 @@ const swirl = 'M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27
       <span class="text">{item.text}</span>
     );
     const subtitle = item.subtitle && <span class="subtitle">{item.subtitle}</span>;
+    // a line with a note: its words are a button that shows the note (hover, focus or tap)
+    const noteId = item.note && `note-${item.text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+    const noted = item.note && (
+      <>
+        <button class="noted" type="button" aria-expanded="false" aria-controls={noteId} data-noted>{item.text}</button>
+        <span class="aside" id={noteId} role="note">
+          <svg class="aside-arrow" viewBox="0 0 26 14" aria-hidden="true" focusable="false">
+            <path d="M24 10C17 2.5 9 2.5 2.5 7.5M2.5 7.5L7.5 6.4M2.5 7.5L4.6 12.2" />
+          </svg>
+          {item.note}
+        </span>
+      </>
+    );
     // portrait photos are set narrower, so they carry about the same weight as landscape ones;
     // wide screenshots get the full text width, so the words in them stay readable
     const shape = item.image && item.image.src.width / item.image.src.height;
@@ -112,7 +125,7 @@ const swirl = 'M7.40 6.00L7.47 6.10L7.51 6.23L7.51 6.37L7.48 6.53L7.40 6.69L7.27
       ) : (
         <div class="line leaf">
           {dot}
-          {text}
+          {noted || text}
           {subtitle}
           {shot}
         </div>

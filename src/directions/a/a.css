@@ -1,13 +1,16 @@
 :root {
   --paper: #f3f0e8;
   --ink: #2a2824;
-  --ink-soft: #7a756c;
+  --ink-soft: #6e685f;
   --thread: #33302b;
   --line: color-mix(in srgb, var(--thread) 42%, var(--paper));
   --halo: #f3f0e8;
+  --board: #fbf9f4;
   --loops: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 7.4C2.6 7.6 5.6 5 5 2.6 4.6.9 2.3 1.7 2.8 4.1 3.3 6.7 6.7 7.9 10 7.2' fill='none' stroke='%232a2824' stroke-width='.75' stroke-linecap='round'/%3E%3C/svg%3E");
-  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .16 0 0 0 0 .15 0 0 0 0 .13 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   --gutter: clamp(1.5rem, 6vw, 6rem);
+  --rule: color-mix(in srgb, var(--ink) 12%, transparent);
+  --guide: color-mix(in srgb, var(--thread) 32%, transparent);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
 
@@ -19,28 +22,30 @@
   --thread: #ddd7cb;
   --line: color-mix(in srgb, var(--thread) 38%, var(--paper));
   --halo: #1a1917;
+  --board: #23221f;
   --loops: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M0 7.4C2.6 7.6 5.6 5 5 2.6 4.6.9 2.3 1.7 2.8 4.1 3.3 6.7 6.7 7.9 10 7.2' fill='none' stroke='%23e8e3d9' stroke-width='.75' stroke-linecap='round'/%3E%3C/svg%3E");
   color-scheme: dark;
 }
 
 html {
   min-height: 100%;
-  background: var(--paper) var(--grain);
+  background: var(--paper);
 }
 
 body {
   /* iOS Safari 26 paints its status bar one solid colour, taken from body's background-color
      (theme-color is ignored), so body carries the paper colour too and the two always match */
-  background: var(--paper) var(--grain);
+  background: var(--paper);
   margin: 0;
   color: var(--ink);
   font-family: 'Commissioner Variable', ui-sans-serif, system-ui, sans-serif;
   font-variation-settings: 'FLAR' 60;
-  font-weight: 380;
+  font-weight: 400;
   font-size: 1rem;
   line-height: 1.62;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-variant-numeric: tabular-nums lining-nums;
 }
 
 ::selection {
@@ -68,7 +73,7 @@ a:hover {
 
 .sheet {
   position: relative;
-  max-width: 40rem; /* ~60 characters a line at the main bullets' size */
+  max-width: calc(38rem + 2 * var(--gutter)); /* ~65 characters a line at the bullets' size */
   margin: 0;
   padding: 0 var(--gutter) 5rem;
 }
@@ -82,7 +87,7 @@ a:hover {
   margin: 0.03em 0 calc(0.2em + clamp(0.875rem, 1.6vw, 1.5rem));
   font-size: clamp(2.75rem, 0.4rem + 9.5vw, 9rem);
   line-height: 1;
-  font-weight: 460;
+  font-weight: 500;
   font-variation-settings: 'FLAR' 100;
   letter-spacing: -0.035em;
   color: var(--ink);
@@ -116,7 +121,7 @@ a:hover {
   margin: 0 0 clamp(2.5rem, 5vw, 4rem);
   font-size: clamp(1.625rem, 1.05rem + 2.4vw, 2.75rem);
   line-height: 1.22;
-  font-weight: 320;
+  font-weight: 400;
   font-variation-settings: 'FLAR' 100;
   letter-spacing: -0.012em;
   text-wrap: balance;
@@ -203,8 +208,8 @@ html:not(.js) .pull {
   opacity: 0;
   transform: translate(-4px, -50%);
   transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
+    opacity 0.35s var(--ease),
+    transform 0.35s var(--ease);
   pointer-events: none;
 }
 
@@ -241,7 +246,7 @@ html:not(.js) .pull {
    with its swirl after the text. */
 .depth-0 {
   padding-left: 0; /* top-level entries carry no marker: date and title sit on the page's left edge */
-  font-size: clamp(1.125rem, 0.95rem + 0.75vw, 1.375rem); /* 18px on a phone, 22px wide */
+  font-size: clamp(1.25rem, 1rem + 0.9vw, 1.625rem); /* 20px on a phone, 26px wide */
 }
 
 /* the date: a small-caps kicker over the entry's title, on the same left edge. Lines that ran side
@@ -250,14 +255,13 @@ html:not(.js) .pull {
   display: flex;
   align-items: baseline;
   gap: 0.4em;
-  margin-bottom: 0.3rem;
-  font-size: 0.8125rem;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
   line-height: 1.4;
-  font-weight: 560;
+  font-weight: 400;
   font-variant-numeric: tabular-nums lining-nums;
-  letter-spacing: 0.09em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--ink) 62%, var(--paper));
+  letter-spacing: 0;
+  color: var(--ink-soft);
   white-space: nowrap;
 }
 
@@ -266,7 +270,7 @@ html:not(.js) .pull {
 }
 
 .depth-0 > li.shares-years {
-  padding-bottom: 0.4rem;
+  padding-bottom: 1rem;
 }
 
 /* on a phone the same edges, a step tighter */
@@ -278,21 +282,32 @@ html:not(.js) .pull {
 
 
 .outline:not(.depth-0) {
-  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.1875rem); /* 17px to 19px */
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem); /* 16px to 18px */
   font-weight: 400;
   letter-spacing: normal;
   color: var(--ink);
 }
 
+/* deeper levels a step smaller, so each level reads as a level */
+.outline:not(.depth-0):not(.depth-1) {
+  font-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem); /* 15px to 16px */
+}
+
 .outline li {
   position: relative;
-  /* 1rem between sibling lines: clearly more than the leading inside a line */
-  padding-bottom: 1rem;
+  /* 0.75rem between sibling lines: a wrapped bullet stays one bullet, a list still one block */
+  padding-bottom: 0.75rem;
 }
 
 .depth-0 > li {
-  font-weight: 430;
-  padding-bottom: 2rem; /* 2rem between top-level entries */
+  font-weight: 500;
+  padding-bottom: 2.5rem;
+}
+
+/* a hairline opens each entry after the first; lines that ran side by side share one */
+.depth-0 > li:not(.shares-years) + li {
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule);
 }
 
 /* the last entry of a list leaves the space after it to what follows */
@@ -300,21 +315,23 @@ html:not(.js) .pull {
   padding-bottom: 0;
 }
 
-/* Things I feel strongly about closes the page: a 4rem break after the timeline, the links 2rem under it */
+/* Things I feel strongly about closes the page, as one more section */
 .depth-0 + .depth-0 {
-  margin-top: 4rem;
+  margin-top: 2.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule);
 }
 
 .line {
   position: relative;
   display: block;
-  text-wrap: balance; /* short lines: wrap evenly, never leave a fragment like '(and growing)' alone */
+  text-wrap: pretty; /* never leave a fragment like '(and growing)' alone on the last line */
 }
 
 summary.line {
   cursor: pointer;
   list-style: none;
-  transition: padding-bottom 0.25s ease;
+  transition: padding-bottom 0.25s var(--ease);
 }
 
 /* an open knot leaves a breath before the first thing it holds */
@@ -350,7 +367,7 @@ summary.line:focus-visible .text {
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
-  transition: translate 0.2s ease;
+  transition: translate 0.2s var(--ease);
 }
 
 .tied > summary .mark {
@@ -421,6 +438,35 @@ summary.line:hover .mark {
   overflow: hidden;
 }
 
+/* an open line inside a list lets a thread down from its dot, beside everything it holds, so
+   what belongs to what is plain however deep it goes. It is drawn as the line opens and drawn
+   back up as it closes. (On the li, not the list, so the clip while it resizes cannot cut it.) */
+.outline:not(.depth-0) > li:has(> details, > .held-open)::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--mx) - 0.5px);
+  top: calc(var(--mark-top) + 11 * var(--u));
+  bottom: calc(0.75rem + 0.4em);
+  width: 1px;
+  background: var(--guide);
+  transform-origin: 50% 0;
+  scale: 1 0;
+  transition: scale 0.2s var(--ease);
+}
+
+.outline:not(.depth-0) > li:has(> .untied)::before,
+.outline:not(.depth-0) > li:has(> .held-open)::before {
+  scale: 1 1;
+  transition: scale 0.6s var(--ease) 0.15s;
+}
+
+/* a line held open inside a closed one waits for it */
+html.js .tied:not(.untied) li:has(> .held-open)::before {
+  scale: 1 0;
+  transition-duration: 0.14s;
+  transition-delay: 0s;
+}
+
 /* closed (or closing): what it holds is gathered away, quickly */
 html.js .tied > .kids > .outline > li > .line,
 html.js .tied > .kids > .outline > li > details > .line,
@@ -428,8 +474,8 @@ html.js .tied > .kids > .outline > li > .kids {
   opacity: 0;
   translate: -4px 0;
   transition:
-    opacity 0.14s ease,
-    translate 0.14s ease;
+    opacity 0.14s var(--ease),
+    translate 0.14s var(--ease);
 }
 
 /* opening: the lines under it come in one after another */
@@ -440,8 +486,8 @@ html.js .untied > .kids > .outline > li > .kids {
   opacity: 1;
   translate: 0 0;
   transition:
-    opacity 0.4s ease calc(0.15s + var(--i) * 0.06s),
-    translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) calc(0.15s + var(--i) * 0.06s);
+    opacity 0.4s var(--ease) calc(0.15s + var(--i) * 0.06s),
+    translate 0.5s var(--ease) calc(0.15s + var(--i) * 0.06s);
 }
 
 /* a picture under its line, set to the text's width */
@@ -466,11 +512,119 @@ html.js .untied > .kids > .outline > li > .kids {
   color: var(--ink-soft);
 }
 
+/* a line with a note: its words dotted underneath, the note in a hand. On a phone (or any screen
+   without hover) a tap opens the note under the line; with a mouse and room in the margin, it
+   appears beside the line, with a little arrow back to it. */
+.noted {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: start;
+  cursor: pointer;
+  text-decoration: underline dotted 1.5px color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.26em;
+  -webkit-tap-highlight-color: transparent;
+  transition: text-decoration-color 0.15s var(--ease);
+}
+
+.noted:hover,
+.noted[aria-expanded='true'] {
+  text-decoration-color: currentColor;
+}
+
+.noted:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.aside {
+  display: none;
+  font-family: 'Patrick Hand', 'Bradley Hand', 'Segoe Print', cursive;
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  font-weight: 400;
+  line-height: 1.35;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.aside-arrow {
+  display: none;
+}
+
+.noted[aria-expanded='true'] ~ .aside {
+  display: block;
+  margin-top: 0.25rem;
+  animation: aside-in 0.22s var(--ease);
+}
+
+@keyframes aside-in {
+  from {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+}
+
+/* each line is its own layer (it slides in when its list opens), so a line with a note sits
+   above the lines after it, or its note would go under them */
+.line:has(> .noted) {
+  z-index: 2;
+}
+
+@media (hover: hover) and (min-width: 64rem) {
+  /* placed where it falls, just after the line's last word, and lifted out of the flow */
+  .aside,
+  .noted[aria-expanded='true'] ~ .aside {
+    display: inline;
+    position: absolute;
+    z-index: 2;
+    width: max-content;
+    max-width: 17rem;
+    margin: -0.125rem 0 0 0.5rem;
+    padding: 0.125rem 0.375rem 0.125rem 2.25rem;
+    border-radius: 3px;
+    background: var(--paper);
+    opacity: 0;
+    translate: -4px 0;
+    pointer-events: none;
+    animation: none;
+    transition:
+      opacity 0.16s var(--ease),
+      translate 0.16s var(--ease);
+  }
+
+  .noted:hover ~ .aside,
+  .noted:focus-visible ~ .aside,
+  .noted[aria-expanded='true'] ~ .aside {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  .aside-arrow {
+    display: block;
+    position: absolute;
+    left: 0.25rem;
+    top: 0.45em;
+    width: 26px;
+    height: 14px;
+    overflow: visible;
+  }
+
+  .aside-arrow path {
+    fill: none;
+    stroke: var(--thread);
+    stroke-width: 1.15;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
 /* a smaller grey line under a line's text */
 .subtitle {
   display: block;
   margin-top: 0.25rem; /* held to its title */
-  font-size: 0.8em;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
   font-weight: 400;
   color: var(--ink-soft);
 }
@@ -507,17 +661,17 @@ html.js .untied > .kids > .outline > li > .kids {
 
 html.js .tied > .kids > .kids-shot {
   opacity: 0;
-  transition: opacity 0.14s ease;
+  transition: opacity 0.14s var(--ease);
 }
 
 html.js .untied > .kids > .kids-shot {
   opacity: 1;
-  transition: opacity 0.45s ease 0.12s;
+  transition: opacity 0.45s var(--ease) 0.12s;
 }
 
 .contact {
-  margin-top: 2rem;
-  font-size: clamp(1.0625rem, 0.95rem + 0.45vw, 1.1875rem);
+  margin-top: 2.5rem;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
 }
 
 /* the light: a small dome fixed to the top edge of the page, to the right of the text */
@@ -534,15 +688,9 @@ html.js .untied > .kids > .kids-shot {
    page's flat paper colour (no texture, no gradients). So the paper goes flat here too, making
    the bar and the page one surface, and the light is mounted on its edge. */
 @media (max-width: 40rem) {
-  html,
-  body {
-    background-image: none;
-  }
-
   .sheet {
     padding-top: 1.75rem;
   }
-
 }
 
 html:not(.js) .lamp {
@@ -619,11 +767,10 @@ html:not(.js) .lamp {
   opacity: 0.6;
 }
 
-/* drawn rays, like a lit bulb in a sketch. While the light is on they glow: a soft amber copy
-   behind them brightens and fades, and the rays reach out a little as it does. */
+/* drawn rays, like a lit bulb in a sketch, while the light is on */
 .rays {
   transform-origin: 0 2.6px; /* the centre of the dome's curve, in the fixture's own units */
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s var(--ease);
 }
 
 .rays-line {
@@ -631,42 +778,6 @@ html:not(.js) .lamp {
   stroke: var(--thread);
   stroke-width: 1.3;
   stroke-linecap: round;
-}
-
-.rays-glow {
-  fill: none;
-  stroke: #ffa63a;
-  stroke-width: 3.2;
-  stroke-linecap: round;
-  opacity: 0.6;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  :root:not([data-theme='dark']) .rays {
-    animation: rays-reach 2.6s ease-in-out infinite alternate;
-  }
-
-  :root:not([data-theme='dark']) .rays-glow {
-    animation: rays-glow 2.6s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes rays-reach {
-  from {
-    scale: 0.94;
-  }
-  to {
-    scale: 1.06;
-  }
-}
-
-@keyframes rays-glow {
-  from {
-    opacity: 0.15;
-  }
-  to {
-    opacity: 0.95;
-  }
 }
 
 [data-theme='dark'] .rays {
@@ -683,8 +794,8 @@ html:not(.js) .lamp {
   opacity: 0;
   transform: translateX(4px);
   transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
+    opacity 0.35s var(--ease),
+    transform 0.35s var(--ease);
   pointer-events: none;
 }
 
@@ -692,6 +803,219 @@ html:not(.js) .lamp {
 .switch:focus-visible .switch-hint {
   opacity: 1;
   transform: none;
+}
+
+/* "Want to chat?": an arm in from the right edge, holding up a flag, or waving a pit board.
+   Measured on the arm's drawing (72×36): the fist's centre is 55.5px in from the edge, 18.5px
+   down. The lane is the page's full width and clips sideways only, so the arm can duck out past
+   the edge without the page scrolling sideways. */
+.reach-lane {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  width: 100%;
+  height: 0;
+  overflow-x: clip;
+  overflow-y: visible;
+  visibility: hidden;
+}
+
+.reach-lane.placed {
+  visibility: visible;
+}
+
+html:not(.js) .reach-lane {
+  display: none;
+}
+
+.reach {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 72px;
+  height: 36px;
+}
+
+.arm {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.arm path,
+.arm rect {
+  fill: var(--paper);
+  stroke: var(--thread);
+  stroke-width: 1.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.arm path {
+  fill: none;
+}
+
+.held {
+  position: absolute;
+}
+
+/* the flag: a stick up through the fist, the cloth flying from its top */
+.flag-held {
+  right: 55.5px;
+  top: -40px;
+}
+
+.flag-held.stowed {
+  visibility: hidden;
+}
+
+.flag-stick {
+  position: absolute;
+  right: -0.75px;
+  top: 0;
+  width: 1.5px;
+  height: 84px;
+  background: var(--thread);
+}
+
+.flag {
+  position: absolute;
+  right: 0.75px;
+  top: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flag::before {
+  /* a bigger target than the cloth */
+  content: '';
+  position: absolute;
+  inset: -8px -10px -8px -8px;
+}
+
+.flag-cloth {
+  display: block;
+  padding: 0.3rem 0.625rem;
+  border: 1px solid var(--thread);
+  border-radius: 1px 0 0 1px;
+  background: var(--board);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  color: var(--ink);
+  transform-origin: 100% 50%;
+  transition: background-color 0.15s var(--ease);
+}
+
+.flag:hover .flag-cloth {
+  background: var(--paper);
+}
+
+.flag:focus-visible {
+  outline: none;
+}
+
+.flag:focus-visible .flag-cloth {
+  outline: 1px solid var(--ink);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .flag-cloth {
+    animation: flutter 3.6s ease-in-out infinite;
+  }
+}
+
+@keyframes flutter {
+  0%,
+  100% {
+    transform: skewY(0deg) scaleX(1);
+  }
+  30% {
+    transform: skewY(-2deg) scaleX(0.985);
+  }
+  60% {
+    transform: skewY(1.5deg) scaleX(1);
+  }
+}
+
+/* the scroll, held by the right end of its top rod; it unrolls downwards to a handwritten note */
+.scroll-held {
+  --overhang: 7px; /* how far the rods run past the paper */
+  right: 50px; /* the rod's end inside the fist */
+  top: 14.5px; /* the rod (8px) level with the fist's centre */
+  display: flex;
+  flex-direction: column;
+  width: min(19rem, 100vw - 5.25rem);
+  transform-origin: calc(100% - 6px) 4px; /* it sways from the hand */
+}
+
+.scroll-held[hidden] {
+  display: none;
+}
+
+.rod {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  height: 8px;
+  border: 1.15px solid var(--thread);
+  border-radius: 4px;
+  background: var(--board);
+}
+
+.paper {
+  margin: -1px var(--overhang);
+  padding: 0.875rem 1.125rem 1rem;
+  border-inline: 1px solid var(--line);
+  background: var(--board);
+  /* an upright, even hand: it reads as written, and still reads easily */
+  font-family: 'Patrick Hand', 'Bradley Hand', 'Segoe Print', cursive;
+  font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.375rem);
+  font-weight: 400;
+  font-variation-settings: normal;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.paper p {
+  margin: 0;
+  text-wrap: pretty; /* no word left alone on a line ('well.') */
+}
+
+.paper p + p {
+  margin-top: 0.5rem;
+}
+
+.paper a {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+}
+
+/* on a phone the flag's words go on two lines, so it stays clear of the thread */
+@media (max-width: 40rem) {
+  .flag-cloth {
+    text-align: right;
+  }
+
+  .flag-cloth > span {
+    display: block;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* the wind, seen in passing */
@@ -762,7 +1086,8 @@ html:not(.js) .lamp {
   .mark,
   .mark path,
   .line,
-  .swirl {
+  .swirl,
+  .outline li::before {
     transition: none !important;
   }
 }

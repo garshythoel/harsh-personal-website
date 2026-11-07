@@ -4,6 +4,7 @@ import './a.css';
 import Outline from './Outline.astro';
 import Header from './Header.astro';
 import Lamp from './Lamp.astro';
+import Chat from './Chat.astro';
 import { contact, outline, beliefs } from '../../content';
 ---
 <main class="sheet" data-sheet>
@@ -12,15 +13,18 @@ import { contact, outline, beliefs } from '../../content';
   <Outline items={outline} />
   <Outline items={[beliefs]} />
 
-  <footer class="contact">
+  <footer class="contact" id="contact">
     {contact.filter((c) => !c.href.includes('[')).map((c, i) => (<>{i > 0 && <span aria-hidden="true"> · </span>}<a href={c.href} {...(c.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>{c.label}</a></>))}
   </footer>
 </main>
 
 <Lamp />
+<Chat />
 
 <script>
   import './knots.ts';
   import './thread.ts';
   import './lamp.ts';
+  import './chat.ts';
+  import './notes.ts';
 </script>
