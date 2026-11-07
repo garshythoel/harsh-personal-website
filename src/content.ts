@@ -40,7 +40,7 @@ export type Item = {
 export const outline: Item[] = [
   {
     text: 'Founder at Inkboard Inc.',
-    subtitle: 'We build hardware and software products that are smart, useful, and joyful.',
+    subtitle: 'Building hardware and software products that are smart, useful, and joyful.',
     open: true,
     years: 'Present – 2024',
     href: 'https://inkboard.ink',
