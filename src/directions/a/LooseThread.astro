@@ -2,20 +2,12 @@
 import '@fontsource-variable/commissioner/flar.css';
 import './a.css';
 import Outline from './Outline.astro';
-import { name, tagline, lede, contact, outline, beliefs } from '../../content';
-
-const ledeText = lede.replace(/\.$/, '');
+import Header from './Header.astro';
+import Lamp from './Lamp.astro';
+import { contact, outline, beliefs } from '../../content';
 ---
 <main class="sheet" data-sheet>
-  <h1 class="name">{name}</h1>
-  <!-- the roles, then what they cover: each on its own line -->
-  <p class="tagline">{tagline.split(/(?<=\.) /).map((part) => <span>{part} </span>)}</p>
-  <p class="lede">{ledeText}<span class="knot" data-knot>.<span class="tie" data-tie></span></span></p>
-
-  <button class="pull" type="button" data-pull aria-label="Pull the thread to open everything" hidden>
-    <span class="pull-hint" data-pull-hint aria-hidden="true">pull</span>
-  </button>
-  <svg class="rope" data-rope aria-hidden="true" focusable="false"><path data-rope-path /></svg>
+  <Header />
 
   <Outline items={outline} />
   <Outline items={[beliefs]} />
@@ -25,29 +17,7 @@ const ledeText = lede.replace(/\.$/, '');
   </footer>
 </main>
 
-<div class="lamp" data-lamp>
-  <button class="switch" type="button" data-switch aria-label="Turn the light off" hidden>
-    <svg class="fixture" data-fixture viewBox="-20 0 40 18" width="40" height="18" aria-hidden="true" focusable="false">
-      <defs>
-        <filter id="ray-glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="1.8" />
-        </filter>
-      </defs>
-      <!-- while the light is on: short drawn rays, evenly spaced around the dome's curve and
-           pointing straight out from it, with a soft amber copy behind that brightens and fades -->
-      <g class="rays">
-        <path class="rays-glow" d="M-17.9 5.4L-24.2 6.8M-14.5 11.8L-19.3 16.2M-8.0 16.3L-10.5 22.3M0.0 17.8L0.0 24.3M8.0 16.3L10.5 22.3M14.5 11.8L19.3 16.2M17.9 5.4L24.2 6.8" filter="url(#ray-glow)" />
-        <path class="rays-line" d="M-17.9 5.4L-24.2 6.8M-14.5 11.8L-19.3 16.2M-8.0 16.3L-10.5 22.3M0.0 17.8L0.0 24.3M8.0 16.3L10.5 22.3M14.5 11.8L19.3 16.2M17.9 5.4L24.2 6.8" />
-      </g>
-      <path class="plate" d="M-10 0v2.6h20V0" />
-      <!-- the base's top edge: a solid black line that mounts the light to the top of the page -->
-      <path class="mount" d="M-13 0.9H13" />
-      <path class="dome" d="M-15 2.6H15A15 12 0 0 1-15 2.6Z" />
-      <path class="seam" d="M-9 6.2q9 4.6 18 0" />
-    </svg>
-    <span class="switch-hint" data-switch-hint aria-hidden="true">off</span>
-  </button>
-</div>
+<Lamp />
 
 <script>
   import './knots.ts';

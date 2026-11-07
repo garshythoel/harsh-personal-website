@@ -1,0 +1,21 @@
+---
+// The link-preview card: just the header and the light, at 1200×630. Captured into
+// public/og.png (og:image) and public/og.mp4 (og:video) by scripts/og-capture.mjs.
+import '@fontsource-variable/commissioner/flar.css';
+import '../directions/a/a.css';
+import Base from '../layouts/Base.astro';
+import Header from '../directions/a/Header.astro';
+import Lamp from '../directions/a/Lamp.astro';
+---
+<Base title="Harshyt Goel">
+  <meta name="robots" content="noindex" slot="head" />
+  <script is:inline slot="head">document.documentElement.classList.add('js');document.documentElement.dataset.og='';</script>
+  <main class="sheet" data-sheet>
+    <Header />
+  </main>
+  <Lamp />
+  <script>
+    import '../directions/a/thread.ts';
+    import '../directions/a/lamp.ts';
+  </script>
+</Base>

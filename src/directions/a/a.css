@@ -759,3 +759,49 @@ html:not(.js) .lamp {
     transition: none !important;
   }
 }
+
+/* the link-preview card (/og): the header alone, captured at 1200×630 */
+[data-og] body {
+  overflow: hidden;
+}
+
+/* a layout made for the 1200×630 card, not the page cropped: the header block centred in the
+   card's height, its type scaled to the card, and the light large enough to balance the name */
+[data-og] .sheet {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
+  max-width: none;
+  padding: 0 0 2.5rem 5rem;
+}
+
+[data-og] .name {
+  margin-bottom: 1.1rem;
+  font-size: 8.75rem;
+}
+
+[data-og] .tagline {
+  margin-bottom: 3rem;
+  font-size: 1.75rem;
+  line-height: 1.35;
+}
+
+[data-og] .lede {
+  margin-bottom: 4.5rem; /* room for the thread to hang inside the card */
+  font-size: 3.1rem;
+}
+
+[data-og] .lamp {
+  left: calc(100% - 11rem);
+}
+
+[data-og] .fixture {
+  scale: 2.6;
+  transform-origin: 50% 0;
+}
+
+[data-og] .pull-hint {
+  display: none;
+}

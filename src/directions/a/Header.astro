@@ -1,0 +1,16 @@
+---
+// The top of the page: the name, what he does, and the lede with its thread hanging from the
+// full stop. Shared by the page and by the link-preview card (/og).
+import { name, tagline, lede } from '../../content';
+
+const ledeText = lede.replace(/\.$/, '');
+---
+  <h1 class="name">{name}</h1>
+  <!-- the roles, then what they cover: each on its own line -->
+  <p class="tagline">{tagline.split(/(?<=\.) /).map((part) => <span>{part} </span>)}</p>
+  <p class="lede">{ledeText}<span class="knot" data-knot>.<span class="tie" data-tie></span></span></p>
+
+  <button class="pull" type="button" data-pull aria-label="Pull the thread to open everything" hidden>
+    <span class="pull-hint" data-pull-hint aria-hidden="true">pull</span>
+  </button>
+  <svg class="rope" data-rope aria-hidden="true" focusable="false"><path data-rope-path /></svg>

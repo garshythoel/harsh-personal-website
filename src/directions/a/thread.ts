@@ -15,7 +15,9 @@ function init(sheet: HTMLElement) {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
 
   const SEG = 4.6;
-  const REST = 12; // ~55px of thread hanging from the full stop, clear of the first entry
+  // ~55px of thread hanging from the full stop, clear of the first entry; longer on the
+  // link-preview card, where it has to read at a small size
+  const REST = document.documentElement.hasAttribute('data-og') ? 20 : 12;
   const VMAX = 9;
   const G = 0.32;
   const DAMP = 0.986;

@@ -2,8 +2,31 @@
 import Base from '../layouts/Base.astro';
 import LooseThread from '../directions/a/LooseThread.astro';
 import font from '@fontsource-variable/commissioner/files/commissioner-latin-flar-normal.woff2?url';
+import { name, tagline, lede } from '../content';
+
+const site = 'https://harsh.yt/';
 ---
-<Base title="Harshyt Goel" description="I pull threads to see where they go.">
+<Base title="Harshyt Goel" description={tagline}>
+  <!-- the link preview: a card of the header (public/og.png) and the same card moving (og.mp4),
+       made from /og by scripts/og-capture.mjs -->
+  <meta property="og:type" content="website" slot="head" />
+  <meta property="og:url" content={site} slot="head" />
+  <meta property="og:site_name" content="Harshyt Goel" slot="head" />
+  <meta property="og:title" content="Hello There!" slot="head" />
+  <meta property="og:description" content={tagline} slot="head" />
+  <meta property="og:image" content={`${site}og.png`} slot="head" />
+  <meta property="og:image:width" content="1200" slot="head" />
+  <meta property="og:image:height" content="630" slot="head" />
+  <meta property="og:image:alt" content={`${name}: ${tagline} ${lede}`} slot="head" />
+  <meta property="og:video" content={`${site}og.mp4`} slot="head" />
+  <meta property="og:video:secure_url" content={`${site}og.mp4`} slot="head" />
+  <meta property="og:video:type" content="video/mp4" slot="head" />
+  <meta property="og:video:width" content="1200" slot="head" />
+  <meta property="og:video:height" content="630" slot="head" />
+  <meta name="twitter:card" content="summary_large_image" slot="head" />
+  <meta name="twitter:title" content="Hello There!" slot="head" />
+  <meta name="twitter:description" content={tagline} slot="head" />
+  <meta name="twitter:image" content={`${site}og.png`} slot="head" />
   <meta name="theme-color" content="#f3f0e8" slot="head" />
   <!-- light unless the visitor has pulled the lamp's string before; the system setting is ignored -->
   <script is:inline slot="head">(function(d){d.classList.add('js');try{if(localStorage.getItem('theme')==='dark'){d.dataset.theme='dark';document.querySelector('meta[name=theme-color]').content='#1a1917'}}catch(e){}})(document.documentElement)</script>

@@ -5,6 +5,7 @@ type Gust = { t0: number; dur: number; amp: number; width: number };
 
 const SPEED = 1.1; // px per ms the gust front travels across the page
 const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+const og = document.documentElement.hasAttribute('data-og');
 const listeners = new Set<() => void>();
 let gust: Gust | null = null;
 
@@ -91,10 +92,11 @@ function blow(first = false) {
     };
     for (const fn of listeners) fn();
     // not every gust is drawn, so the lines stay rare; the first always is
-    if (first || Math.random() < 0.7) gustLines();
+    if (first || og || Math.random() < 0.7) gustLines();
   }
-  setTimeout(blow, 8000 + Math.random() * 9000);
+  setTimeout(blow, og ? 3200 : 8000 + Math.random() * 9000);
 }
 
-// the first gust arrives with the "pull" hint, so the page shows it is alive
-setTimeout(() => blow(true), 3900);
+// the first gust arrives with the "pull" hint, so the page shows it is alive. On the link-preview
+// card (/og) the wind starts at once and keeps a steady beat, so a short recording always has it.
+setTimeout(() => blow(true), og ? 500 : 3900);
