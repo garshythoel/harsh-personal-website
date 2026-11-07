@@ -10,18 +10,14 @@ export const tagline = 'Engineer · Designer · Operator. Software, hardware, an
 
 export const lede = 'I pull threads to see where they go.';
 
-// "Want to chat?": a flag held up at the right edge; tapped, it becomes a handwritten note on a
-// scroll, unrolled
+// at the bottom, before the links
 export const chat = {
-  label: 'Want to chat?',
-  /** the note on the scroll, a paragraph each */
+  /** a line each */
   note: [
     'I’m always interested in talking to people who’re building things!',
     'Have advised companies and occasionally worked with them as well.',
-    'Use the links at the bottom if you’d like to chat.',
   ],
-  /** the words in the note that take you down to the contacts */
-  linkText: 'the links at the bottom',
+  label: 'Want to chat?',
 };
 
 export const contact = [
