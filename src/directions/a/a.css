@@ -28,6 +28,7 @@
 
 html {
   min-height: 100%;
+  overscroll-behavior-y: none; /* no bounce past the roof */
   background: var(--paper) var(--grain);
 }
 
@@ -74,14 +75,15 @@ a:hover {
   padding: var(--roof-h) var(--gutter) 5rem; /* the name sits right under the roof */
 }
 
-/* the roof: a solid black band across the top of the page, in both lights; the lamp hangs from it */
+/* the roof: a solid black band across the top of the page, edge to edge, in both lights; nothing
+   draws over it (the lamp's glow sits beneath), and the lamp hangs from its underside */
 body::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 2;
+  z-index: 10;
   height: var(--roof-h);
   background: var(--roof);
 }
