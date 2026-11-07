@@ -468,6 +468,11 @@ html.js .untied > .kids > .outline > li > details > .line {
   margin-top: 1rem;
 }
 
+/* inside a list, an always-open line's own list follows at the normal list spacing */
+.outline:not(.depth-0) .held-open + .kids {
+  margin-top: 0.5rem;
+}
+
 /* portrait photos run narrower, so they weigh about the same as the landscape ones */
 .shot.tall {
   max-width: 12rem;
@@ -505,7 +510,6 @@ html.js .untied > .kids > .kids-shot {
 
 /* the light: a small dome fixed to the top edge of the page, to the right of the text */
 .lamp {
-  --drop: 0px; /* how far the light hangs below the top edge, on a cord */
   position: absolute;
   top: 0;
   left: calc(100% - clamp(3rem, 7vw, 6rem)); /* in from the edge, so its glow falls on the page */
@@ -514,20 +518,9 @@ html.js .untied > .kids > .kids-shot {
   height: 0;
 }
 
-/* the cord, when the light hangs below the edge */
-.lamp::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -0.6px;
-  width: 1.2px;
-  height: var(--drop);
-  background: var(--thread);
-}
-
 /* on a phone the page starts just below the browser's status bar, which Safari fills with the
    page's flat paper colour (no texture, no gradients). So the paper goes flat here too, making
-   the bar and the page one surface: the cord seems to come down from the top of the screen. */
+   the bar and the page one surface, and the light is mounted on its edge. */
 @media (max-width: 40rem) {
   html,
   body {
@@ -538,9 +531,6 @@ html.js .untied > .kids > .kids-shot {
     padding-top: 1.75rem;
   }
 
-  .lamp {
-    --drop: 1.4rem;
-  }
 }
 
 html:not(.js) .lamp {
@@ -550,7 +540,7 @@ html:not(.js) .lamp {
 .switch {
   position: absolute;
   left: -26px;
-  top: var(--drop);
+  top: 0;
   width: 52px;
   height: 44px;
   padding: 0;
@@ -588,6 +578,14 @@ html:not(.js) .lamp {
 
 .plate {
   fill: var(--paper);
+}
+
+/* the base's top edge, in solid black */
+.mount {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.8;
+  stroke-linecap: butt;
 }
 
 .dome {

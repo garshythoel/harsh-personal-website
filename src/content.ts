@@ -66,6 +66,23 @@ export const outline: Item[] = [
           { text: 'Firmware development' },
           { text: 'Shipping/Fulfillment and Tariff laws (ask me about procuring my display panels...)' },
           { text: 'Hiring/Firing fast' },
+          {
+            text: 'How to scale myself to handle',
+            open: true,
+            children: [
+              {
+                text: 'Automated agents for',
+                open: true,
+                children: [
+                  { text: 'Customer Support' },
+                  { text: 'Fulfillment handling' },
+                  { text: 'Special Kickstarter Award deliveries' },
+                  { text: 'Marketing Creatives (partially)' },
+                  { text: 'Accounting (rolled back, not a smart move)' },
+                ],
+              },
+            ],
+          },
           { text: 'Bootstrapping a hardware startup is a bad idea for your sanity' },
         ],
       },
