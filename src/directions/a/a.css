@@ -10,6 +10,8 @@
   --gutter: clamp(1.5rem, 6vw, 6rem);
   --rule: color-mix(in srgb, var(--ink) 12%, transparent);
   --guide: color-mix(in srgb, var(--thread) 32%, transparent);
+  --patch: color-mix(in srgb, var(--ink) 3.5%, transparent);
+  --dots: color-mix(in srgb, var(--ink) 16%, transparent);
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
@@ -291,6 +293,35 @@ html:not(.js) .pull {
 /* deeper levels a step smaller, so each level reads as a level */
 .outline:not(.depth-0):not(.depth-1) {
   font-size: clamp(0.9375rem, 0.9rem + 0.15vw, 1rem); /* 15px to 16px */
+}
+
+/* a list inside a list sits on its own patch of dotted paper, its text still on the same edge;
+   the bullets get a little room from the patch's edge */
+.outline.depth-2 {
+  position: relative;
+  isolation: isolate;
+  margin-left: -0.75rem;
+  padding: 0.875rem 1rem 0.125rem calc(var(--gut) + 0.75rem);
+}
+
+/* the patch fades with the lines on it, so it never stands empty while its list folds away */
+.outline.depth-2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 6px;
+  background-color: var(--patch);
+  background-image: radial-gradient(circle, var(--dots) 0.7px, transparent 1.1px);
+  background-size: 12px 12px;
+  background-position: 6px 6px;
+  transition: opacity 0.4s var(--ease) 0.1s;
+}
+
+html.js .tied:not(.untied) > .kids > .outline.depth-2::before {
+  opacity: 0;
+  transition-duration: 0.14s;
+  transition-delay: 0s;
 }
 
 .outline li {
